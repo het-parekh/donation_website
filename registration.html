@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration</title>
+        <link rel="stylesheet" href="navbar.css">
+        <link rel="stylesheet" href="popup.css">
+        <link rel="stylesheet" href="registration.css">
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="container">
+                <div class="logo-div">
+                    <img src="images/logo.png" alt="" class="logo">
+                </div>
+                <div class="navbar-links">
+                    <ul class="menu">
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#" id="login">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bg-model">
+            <div class="model-content">
+
+                <div class="close">+</div>
+                <img src="http://bit.ly/31pHqJb" alt="">
+
+                <form action="">
+                    <input type="text" placeholder="Username" required>
+                    <input type="password" placeholder="Password" required>
+                    <div class="pass">Forgot Password?</div>
+                    <input type="submit" value="Login">
+                    <div class="signup">Not Registered? 
+                        <a href="registration.html">Signup</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="wrapper">
+            <form action="" method="">
+                <div class="title">Registration Form</div>
+            <div class="form">
+                <div class="input-field">
+                    <label for="first-name">First Name</label>
+                    <input type="text" class="input" required>
+                </div>
+                <div class="input-field">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" class="input" required>
+                </div>
+                <div class="input-field">
+                    <label for="password">Password</label>
+                    <input type="password" class="input" required>
+                </div>
+                <div class="input-field">
+                    <label for="confirm password">Confirm Password</label>
+                    <input type="password" class="input" required>
+                </div>
+                <!---<div class="input-field">
+                    <label for="gender">Gender</label>
+                    <div class="custom-select">
+                        <select name="" id="">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>--->
+                <div class="input-field">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="input" maxlength="50" required>
+                </div>
+                <div class="input-field">
+                    <label for="phone number">Phone Number</label>
+                    <input type="tel" class="input" maxlength="10" required>
+                </div>
+                <div class="input-field">
+                    <label for="address">Address</label>
+                    <textarea class="textarea" maxlength="250" required></textarea>
+                </div>
+                <div class="input-field">
+                    <label for="postal code">Postal Code</label>
+                    <input type="text" class="input" required>
+                </div>
+                <div class="input-field terms">
+                    <label class="check">
+                        <input type="checkbox" required>
+                        <span class="checkmark"></span>
+                    </label>
+                    <p>Aggred to terms and conditions</p>
+                </div>
+                <div class="input-field">
+                    <input type="submit" value="Register" class="btn">
+                </div>
+            </div>
+            </form>
+        </div>
+        <script src="popup.js"></script>     
+    </body>
+</html>
