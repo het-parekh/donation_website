@@ -18,12 +18,12 @@ from django.urls import path,include
 from user import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
-from  django.contrib.auth.views import LoginView,LogoutView
+from  django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('donation.urls')),
-    path('login/',LoginView.as_view(template_name="user/login.html"),name='login'),
+    path('login/',user_views.MyLoginView.as_view(template_name="user/login.html"),name='login'),
     path('logout/',LogoutView.as_view(template_name="user/logout.html"),name='logout'),
     path('register/',user_views.register,name='register'),
     #path('profile/',user_views.profile,name='profile')

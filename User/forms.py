@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from phonenumber_field.formfields import PhoneNumberField
+
 
 
 class UserRegisterForm(UserCreationForm ):
@@ -24,3 +25,11 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image','gender','phone_number','address','postal_code']
+
+class MyAuthForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': (
+            "Invalid Email Address or Password"
+        )
+    }
+
