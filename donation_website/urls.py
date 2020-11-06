@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('donation.urls')),
     path('login/',LoginView.as_view(template_name="user/login.html"),name='login'),
-    path('register/',user_views.register,name='register')
+    path('logout/',LogoutView.as_view(template_name="user/logout.html"),name='logout'),
+    path('register/',user_views.register,name='register'),
+    #path('profile/',user_views.profile,name='profile')
     
     
 ]

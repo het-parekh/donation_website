@@ -1,9 +1,17 @@
 /******************
-Popup Login
+Login
 *******************/
 *{
     margin: 0;
     padding: 0;
+}
+
+#div_id_username label{
+   font-size: 0;
+}
+#div_id_username label:before{
+    content: "Email address or Username*";
+    font-size: 16px; 
 }
 
 input[type="submit"]{
@@ -99,6 +107,10 @@ Navbar
     background-color: #8e33d8;
 }
 
+.menu li.no-hover:hover{
+    background-color: #333;
+}
+
 /********************
 Registration
 ********************/
@@ -136,16 +148,26 @@ Registration
     display: flex;
     align-items: center;
 }
-
-.wrapper .form .input-field label{
+.register_body label{
     width: 200px;
     font-weight: 700;
     color: rgb(0, 0, 0);
     margin-right: 10px;
     font-size: 14px;
+    display: inline;
+}
+.register_body .form-check label{
+    width: 200px;
+    font-weight: 450;
+    color: rgb(0, 0, 0);
+    margin-right: 10px;
+    font-size: 14px;
+}
+#div_id_gender .form-check{
+    display: inline;
 }
 
-.wrapper .form .input-field .input,
+/* .wrapper .form .input-field .input,
 .wrapper .form .input-field .textarea{
     width: 100%;
     outline: none;
@@ -159,7 +181,7 @@ Registration
 .wrapper .form .input-field .textarea{
     resize: none;
     height: 125px;
-}
+} */
 /*.wrapper .form .input-field .custom-select{
     position: relative;
     width: 100%;

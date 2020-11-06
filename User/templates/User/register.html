@@ -1,63 +1,18 @@
 {% extends 'donation/base.html' %}
+{% load crispy_forms_tags%}
 
 {% block content %}
 
 <body class="register_body">
     <div class="wrapper">
-        <form action="" method="">
+        <form name="register" method="POST">
+            {% csrf_token %}
             <div class="title ">Registration Form</div>
             <div class="form">
+            {{UserForm|crispy}}
+            {{ProfileForm|crispy}}
             <div class="input-field">
-                <label for="first-name">First Name</label>
-                <input type="text" class="input" required>
-            </div>
-            <div class="input-field">
-                <label for="last-name">Last Name</label>
-                <input type="text" class="input" required>
-            </div>
-            <div class="input-field">
-                <label for="password">Password</label>
-                <input type="password" class="input" required>
-            </div>
-            <div class="input-field">
-                <label for="confirm password">Confirm Password</label>
-                <input type="password" class="input" required>
-            </div>
-            <div class="input-field">
-                <label for="gender">Gender</label>
-                <div class="custom-select">
-                    <select name="" id="">
-                        <option value="">Select</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input-field">
-                <label for="email">Email Address</label>
-                <input type="email" class="input" maxlength="50" required>
-            </div>
-            <div class="input-field">
-                <label for="phone number">Phone Number</label>
-                <input type="tel" class="input" maxlength="10" required>
-            </div>
-            <div class="input-field">
-                <label for="address">Address</label>
-                <textarea class="textarea" maxlength="250" required></textarea>
-            </div>
-            <div class="input-field">
-                <label for="postal code">Postal Code</label>
-                <input type="text" class="input" required>
-            </div>
-            <div class="input-field terms">
-                <label class="check">
-                    <input type="checkbox" required>
-                    <span class="checkmark"></span>
-                </label>
-                <p>Aggred to terms and conditions</p>
-            </div>
-            <div class="input-field">
-                <input type="submit" value="Register" class="btn">
+                <input type="submit" name="register" class="btn">
             </div>
         </div>
         </form>
