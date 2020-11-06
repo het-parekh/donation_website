@@ -10,14 +10,14 @@ class UserRegisterForm(UserCreationForm ):
     #USERNAME_FIELD='email'
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email','password1','password2']
+        fields = ['first_name','last_name','email','password1','password2']
 
 class UserProfileForm(forms.ModelForm):
     CHOICES = [('M','Male'),('F','Female')]
 
     image = forms.ImageField(label='Profile Image',required=False)
     gender = forms.ChoiceField(label='Gender',choices = CHOICES,widget=forms.RadioSelect)
-    phone_number = forms.IntegerField(label='Phone Number',widget=forms.NumberInput)
+    phone_number = PhoneNumberField(label='Phone Number',widget=forms.NumberInput)
     address = forms.CharField(label='Address' ,max_length=300,widget=forms.Textarea(attrs={'rows':3,'cols':10}))
     postal_code = forms.CharField(label='Postal Code')
 

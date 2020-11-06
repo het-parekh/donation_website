@@ -21,7 +21,7 @@
                       <li><a href="{% url 'register' %}" id="signup">Signup</a></li>
                         <li><a href="{% url 'login' %}">Login</a></li>
                         {% else %}
-                        <li></li>
+                        <li class='no-hover '></li>
                         <li class='no-hover '><button class='btn btn-danger'><a href="{% url 'logout' %}">Logout</a></button></li>
                         {% endif %}
                     </ul>

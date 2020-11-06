@@ -10,7 +10,9 @@ def register(request):
         if UserForm.is_valid() and ProfileForm.is_valid():
             #username = form.cleaned_data.get('email')
             #ProfileForm.cleaned_data['phone_number']='+91'+ form.cleaned_data['phone_number']
-            user = UserForm.save()
+            user = UserForm.save(commit=False)
+            user.username = user.email
+            user.save()
             profile = ProfileForm.save(commit=False)
             profile.user = user
             profile.save()

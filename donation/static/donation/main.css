@@ -10,7 +10,7 @@ Login
    font-size: 0;
 }
 #div_id_username label:before{
-    content: "Email address or Username*";
+    content: "Email address*";
     font-size: 16px; 
 }
 
