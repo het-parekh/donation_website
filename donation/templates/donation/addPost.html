@@ -1,0 +1,30 @@
+{% extends 'donation/base.html' %}
+{% load crispy_forms_tags%}
+{% load static %}
+
+{% block content %}
+<html>
+<head> <link rel="stylesheet" href="{% static 'donation/addPost.css' %}"></head>
+    
+    <body>
+        <div class="wrapper2">
+            <div class="form-style-5">
+                <form method = "POST" class='form'  enctype = 'multipart/form-data'>
+                {% csrf_token %}
+                    <fieldset>
+                        <h5><legend><span class="number"><i class="fa fa-info" aria-hidden="true"></span> Post Info</legend></h5>
+                        {{addform|crispy}}
+                    </fieldset>
+                    <fieldset>
+                       <h5  > <legend><span class="number"><i class="fa fa-upload" aria-hidden="true"></i></span> Upload Images</legend></h5>
+                        {{image_form|crispy}}
+                    </fieldset>
+                    
+                    <input type="submit" style="margin-top:15px">  
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+
+{% endblock content %}

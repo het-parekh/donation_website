@@ -5,7 +5,7 @@
 
 <body class="register_body">
     <div class="wrapper">
-        <form name="register" method="POST">
+        <form name="register" method="POST" enctype = 'multipart/form-data'>
             {% csrf_token %}
             <div class="title ">Registration Form</div>
             <div class="form">
