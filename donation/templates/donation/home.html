@@ -1,1 +1,48 @@
- {% extends 'donation/base.html' %}
+{% extends 'donation/base.html' %}
+{% load static %}
+    
+
+{% block content %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'donation/home.css'%}?{% now "SHORT_DATETIME_FORMAT" %}">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        
+    </head>
+    <body>
+        <div class = "main-container" style="margin-top:-5px;margin-left:auto;">
+                <div class = "category-head" style="margin:auto" > 
+                    <ul>
+                        <div class = "category-title category-active" id = "all">
+                            <li>All</li>
+                        </div>
+                        {% for parent in categories%}
+                        <div class = "category-title"  >
+                            <li>{{parent}}</li>
+                        </div>
+                        {% endfor%}
+                    </ul>
+                </div> 
+                           
+                <div id="sub_category_id"  class='sub_category-container'>
+                    {% comment %} 
+                        <button class='sub_category' >{{text}}</button>
+                    {% endfor %}  {% endcomment %}
+                </div>
+                
+                <div class = "posts-collect">
+                    <div class = "posts-main-container" id="post_container_id">
+                        <!-- single post -->
+                </div>
+            </div>
+        </div>
+        <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    </body>
+    
+</html>
+
+{% endblock content %}

@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
+    #Third Party apps
     'livereload',
     'crispy_forms',
     'phonenumber_field',
+    'django_cleanup.apps.CleanupConfig',#Keep at bottom
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'livereload.middleware.LiveReloadScript',
+    'livereload.middleware.LiveReloadScript',#Keep at bottom
 ]
 
 ROOT_URLCONF = 'donation_website.urls'

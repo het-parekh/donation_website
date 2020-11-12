@@ -14,13 +14,28 @@
                     <fieldset>
                         <h5><legend><span class="number"><i class="fa fa-info" aria-hidden="true"></span> Post Info</legend></h5>
                         {{addform|crispy}}
+                        {% comment %} <div class="form-group" id="div_id_category"> <label class="requiredField" for="id_category">
+                             Category<span class="asteriskField">*</span> </label> <div class=""> 
+                             <select class="select form-control" id="id_category" name="category"> <option selected="" value="Books">Books</option> <option value="Clothing">Clothing</option> <option value="Electronics">Electronics</option> <option value="Furniture">Furniture</option> <option value="Footwear">Footwear</option> <option value=""></option>
+                            </select> </div> </div> {% endcomment %}
+                        
+                        
+                        <div class="form-group" id="div_id_sub_category"> 
+                        <label for="div_id_sub_category">
+                                Sub Category<span>*</span>
+                        </label> 
+                    </div> 
+                    
                     </fieldset>
                     <fieldset>
+                        
                        <h5  > <legend><span class="number"><i class="fa fa-upload" aria-hidden="true"></i></span> Upload Images</legend></h5>
-                        {{image_form|crispy}}
+                        
+                        <div id='img'>{{image_form|crispy}}</div>
+                        <small class='text-muted float-right' ><input required type='checkbox' style='width:10px;height:10px;'> I agree to the Terms and Conditions*<small>
                     </fieldset>
-                    
-                    <input type="submit" style="margin-top:15px">  
+
+                    <input id ='submit' type="submit" style="margin-top:15px">  
                 </form>
             </div>
         </div>
