@@ -1,7 +1,10 @@
 $(document).ready(function(){
 
+// On Page Load
+var load = 1
+var step = 1
+display_category('All',null)
 /**************************Categories ******************************/
-var cat = $( "#id_category option:selected" ).text();
 
 $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
@@ -60,15 +63,15 @@ function display_category(cat,subcats){
     $.get(window.location.href,{display_category:cat,display_sub_categories:JSON.stringify(subcats)})
     .done(function(data){
         posts = $.parseJSON(data['posts'])
+        categogy = (data['category'])
         image = (data['image'])
         sub_category = (data['sub_category'])
         row = ''
         for(i = 0;i<posts.length;i++){
-            console.log(posts[i])
             row += '<div class = "all books single-post">'+
 '                                <div class = "post-img">'+
 '                                    <img src = "'+ window.location.href + image[i].substring(3,image[0].length-2)+'" alt = "post">'+
-'                                    <span class = "category-name">'+ cat +'</span>'+
+'                                    <span class = "category-name">'+ categogy[0] +'</span>'+
 '                                </div>'+
 '                                <div class = "post-content" >'+
 '                                    <div class = "post-content-top">'+
@@ -83,6 +86,10 @@ function display_category(cat,subcats){
         }
         $("#post_container_id").empty()
         $("#post_container_id").append(row)
+        if ($("#loadmore").length == 0){
+            $("#post_collect_id").append("<br /><center><button id='loadmore'>Load More</button></center>;")
+        }
+        loadMore()
         
     })
 }
@@ -90,7 +97,6 @@ function display_category(cat,subcats){
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 /******************Sub Categories********************************* */
-var category 
 $(".category-title").click(function(){
     switch_category($(this).text())
     $("#hr").remove()
@@ -104,6 +110,12 @@ $("#sub_category_id").on('click','.sub_category',function(){
     })
     display_category(category,arr)
     
+})
+
+$("#post_collect_id").on("click",'#loadmore',function(){
+    
+    load += step
+    loadMore()
 })
 //********************FUNCTION DEFINITIONS***************************** */
 
@@ -119,6 +131,7 @@ function switch_category(category){
                 return
             }
             row = ''
+            
             for(i=0;i<data.length;i++){
                 row += "<button class='sub_category'>"+(data[i])+"</button>"
             }
@@ -129,6 +142,21 @@ function switch_category(category){
     })
 }
 
+function loadMore(){
+    $(".single-post").slice(0,).hide()
+    $("#loadmore").hide()
+    if($(".single-post").length > load){
+            $("#post_collect_id").show()
+            $(".single-post").slice(0,load-step).show()
+            $(".single-post").slice(load-step,load).slideDown('fast')
+            $("#loadmore").show() 
+        }else{
+        x = $(".single-post").length
+        $(".single-post").slice(0,x-step).show()
+        $(".single-post").slice(x-step,x).slideDown('fast')
+    }
+    
+}
 
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 

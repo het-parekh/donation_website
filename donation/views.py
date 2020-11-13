@@ -17,7 +17,6 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
     model = Post
     template_name = 'donation/home.html'
     context_object_name = 'posts'
-
         # if category:
         #     p = p.filter(category.parent = category)  
 
@@ -41,8 +40,8 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
         if request.GET.get("display_category"):
             cat = request.GET.get("display_category").strip()
             sub_cats = request.GET.get("display_sub_categories").strip()
-            
-            if cat == 'ALL':
+            print(cat)
+            if cat == 'All':
                 posts = Post.objects.all()
             elif sub_cats =='null':
                 posts = Post.objects.filter(category__parent = Category.objects.get(name = cat)) 
@@ -53,17 +52,21 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
                     posts = Post.objects.filter(category__name__in = sub_cats)
                 else:
                     posts = Post.objects.all()
-            sub_categogy = []
+            sub_category = []
+            category = []
             image = []
             for post in posts:
-                sub_categogy.append(post.category.name)
+                print(post.category.parent)
+                sub_category.append(post.category.name)
+                category.append(post.category.parent)
                 image.append([post.post_img.all()[0].main_image.url])
 
             posts = serializers.serialize("json", posts)
             image_list = list(map(str,image))
-            sub_categogy_list = list(map(str,sub_categogy))
+            sub_category_list = list(map(str,sub_category))
+            category_list = list(map(str,category)) 
             
-            data = {'posts':posts,'image':image_list,'sub_category':sub_categogy_list}
+            data = {'posts':posts,'image':image_list,'sub_category':sub_category_list,'category':category_list}
 
         return self.render_json_response(data)
 
