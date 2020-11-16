@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
 // On Page Load
-var load = 1
-var step = 1
+var load = 4
+var step = 4
 display_category('All',null)
 /**************************Categories ******************************/
 
@@ -35,6 +35,7 @@ function get_sub_categories(cat){
         data:{checkboxes:cat},
         success: function (data) {{
             $("#div_id_sub_category").empty()
+            data = data['sub_categories']
             row =''
             for(i=0;i<data.length;i++){
             row += ("<div class='sc_container'><label class='radio'><input required  name='sc'  type='radio' \
@@ -66,19 +67,22 @@ function display_category(cat,subcats){
         categogy = (data['category'])
         image = (data['image'])
         sub_category = (data['sub_category'])
+        console.log(categogy)
+        console.log(image)
         row = ''
         for(i = 0;i<posts.length;i++){
+            var title  = (posts[i].fields.title.length) > 13?$.trim(posts[i].fields.title).substring(0,15).trim(this)+"...":posts[i].fields.title
             row += '<div class = "all books single-post">'+
 '                                <div class = "post-img">'+
-'                                    <img src = "'+ window.location.href + image[i].substring(3,image[0].length-2)+'" alt = "post">'+
-'                                    <span class = "category-name">'+ categogy[0] +'</span>'+
+'                                    <img src = "'+ window.location.href + image[i].substring(3,image[i].length-2)+'" alt = "post_image">'+
+'                                    <span class = "category-name">'+ categogy[i] +'</span>'+
 '                                </div>'+
 '                                <div class = "post-content" >'+
 '                                    <div class = "post-content-top">'+
 '                                        <span><i class = "fas fa-calendar"></i>'+ posts[i].fields.date +'</span>'+
 '                                        '+
 '                                    </div>'+
-'                                    <h2>'+ posts[i].fields.title +'<span  class=\'badge badge-dark float-right\' >'+ sub_category[i] +'</span></h2>'+
+'                                    <h2>'+ title +'<span  class=\'badge badge-dark float-right\' >'+ sub_category[i] +'</span></h2>'+
 '                                </div>'+
 '                                <button type = "button" class = "read-btn">Get Now</button>'+
 '                            </div>';

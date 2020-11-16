@@ -56,11 +56,10 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             category = []
             image = []
             for post in posts:
-                print(post.category.parent)
                 sub_category.append(post.category.name)
                 category.append(post.category.parent)
                 image.append([post.post_img.all()[0].main_image.url])
-
+            
             posts = serializers.serialize("json", posts)
             image_list = list(map(str,image))
             sub_category_list = list(map(str,sub_category))
@@ -85,6 +84,7 @@ def addPost(request):
         cat = request.GET.get('checkboxes')
         c = Category.objects.get(name=cat).children.all()
         c2 = list(map(str,c))
+        print(c2)
         return JsonResponse({'sub_categories':c2})
 
     if request.GET.get('cat') and request.is_ajax():

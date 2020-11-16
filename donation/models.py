@@ -45,7 +45,6 @@ class Post(models.Model):
     terms_accepted = models.BooleanField(null=False,blank=False,default=False,verbose_name="I agree to the Terms and Conditions*")
     slug = models.SlugField(max_length=150,unique=True,null=True)
 
-
     def __str__(self):
         return f"{self.author} -> {self.title}"
     
