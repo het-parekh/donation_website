@@ -127,8 +127,9 @@ body{
 
 }
 .post-img img{
+    margin-top: 10px;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     
 }
 .category-name{
@@ -225,12 +226,12 @@ body{
 /***************/
 @media(max-width: 1170px){
     .posts-main-container{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 @media(max-width: 768px){
     .posts-main-container{
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);;
     }
 }
 
