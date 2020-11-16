@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'donation/index.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href="#">
+          <img src="{% static '/images/logo.png' %}" width="30" height="30" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><h1>Home</h1></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><h1>Post</h1></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><h1>About</h1></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><h1>Profile</h1></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><h1>Register</h1></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><h1>Login</h1></a>
+              </li>
+            </ul>
+        </div>
+      </nav>
+     
+      <div class = "main-container">
+        <div class = "filter-container">
+            <div class = "category-head">
+                <ul>
+                    <div class = "category-title active" id = "all">
+                        <li>All</li>
+                    </div>
+                    <div class = "category-title" id = "books">
+                        <li>Books</li>
+                    </div>
+                    <div class = "category-title" id = "electronics">
+                        <li>Electronics</li>
+                    </div>
+                    <div class = "category-title" id = "footwear">
+                        <li>Footwear</li>
+                    </div>
+                    <div class = "category-title" id = "furniture">
+                        <li>Furniture</li>
+                    </div>
+                    <div class = "category-title" id = "pants">
+                        <li>Pants</li>
+                    </div>
+                    <div class = "category-title" id = "shirts">
+                        <li>Shirts</li>
+                    </div>
+                    <div class = "category-title" id = "tshirts">
+                        <li>T-Shirts</li>
+                    </div>
+                    <div class = "category-title" id = "utensils">
+                        <li>Utensils</li>
+                    </div>
+                </ul>
+            </div>
+    
+            <div class = "posts-collect">
+                <div class = "posts-main-container">
+                    <!-- single post -->
+                    {% for post in Posts %}
+                    <div class = "all books single-post">
+                        <div class = "post-img">
+                            <img src = "{% static 'images/books-1.jpeg' %}" alt = "post">
+                            <span class = "category-name">{{ post.category }}</span>
+                        </div>
+    
+                        <div class = "post-content">
+                            <div class = "post-content-top">
+                                <span><i class = "fas fa-calendar"></i>January 01, 2XXX</span>
+                            </div>
+                            <h2>{{ post.title }}</h2>
+                            <p>{{ post.description }}</p>
+                        </div>
+                        <button type = "button" class = "read-btn">Get Now</button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
