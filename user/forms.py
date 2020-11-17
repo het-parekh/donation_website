@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UserChangeForm
 from phonenumber_field.formfields import PhoneNumberField
+
 
 
 
@@ -25,6 +26,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image','gender','phone_number','address','postal_code']
+        exclude=('bio',)
 
 class MyAuthForm(AuthenticationForm):
     error_messages = {
@@ -33,3 +35,18 @@ class MyAuthForm(AuthenticationForm):
         )
     }
 
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','email',]
+    
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['image','gender','phone_number','address','postal_code','bio',]
+        exclude = ('terms_accepted',)
+        

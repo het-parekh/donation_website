@@ -1,7 +1,12 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib import messages
-from .forms import UserRegisterForm,UserProfileForm,MyAuthForm
+from .forms import UserRegisterForm,UserProfileForm,MyAuthForm,UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth.views import LoginView
+from .models import Profile
+from donation.models import Post
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 class MyLoginView(LoginView):
     authentication_form = MyAuthForm
@@ -25,4 +30,41 @@ def register(request):
         UserForm = UserRegisterForm()
         ProfileForm = UserProfileForm()
     return render(request,'user/register.html',{'UserForm' :UserForm,'ProfileForm' :ProfileForm})
+
+@login_required
+def profile(request,slug):
+    profile = get_object_or_404(Profile)
+    if request.POST.get("settings"):
+        
+        UserForm = UserUpdateForm(request.POST,instance=request.user.profile)
+        ProfileForm = ProfileUpdateForm(request.POST,request.FILES,instance=request.user)
+        if UserForm.is_valid() and ProfileForm.is_valid():
+            user = UserForm.save()
+            profile = ProfileForm.save()
+            messages.success(request,"Your account has been updated successfully ")
+            return redirect('profile')
+    else:
+        UserForm = UserRegisterForm(instance=request.user)
+        ProfileForm = UserProfileForm(instance=request.user.profile)
+    slugs =  get_object_or_404(Profile, slug=slug)
+    user_profile = slugs.user
+    profile = slugs
+    p = Post.objects.filter(author = user_profile)
+    return render(request,'user/profile.html/',{'user_profile':user_profile,'posts':p,'UserForm' :UserForm,'ProfileForm' :ProfileForm,'profile':slugs})
+
+
+
+
+    # def userupdate_form_valid(self,form):
+    #     return form.login(self.request, redirect_url=self.get_success_url())
+
+    # def profileupdate_form_valid(self,form):
+    #     return form.signup(self.request, user, self.get_success_url())
+
+
+    
+
+
+    
+
 

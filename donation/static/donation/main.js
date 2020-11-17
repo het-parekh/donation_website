@@ -5,7 +5,15 @@ var load = 4
 var step = 4
 display_category('All',null)
 /**************************Categories ******************************/
+if(navigator.geolocation){
+    var n = navigator.geolocation.getCurrentPosition(showPosition);
+    console.log(n)
+}
 
+function showPosition(position) {
+      console.log("Latitude: " + position.coords.latitude + 
+      "<br>Longitude: " + position.coords.longitude); 
+     }
 $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
     $(this).addClass('category-active')

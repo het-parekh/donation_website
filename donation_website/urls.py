@@ -26,6 +26,7 @@ urlpatterns = [
     path('login/',user_views.MyLoginView.as_view(template_name="user/login.html"),name='login'),
     path('logout/',LogoutView.as_view(template_name="user/logout.html"),name='logout'),
     path('register/',user_views.register,name='register'),
+    path('profile/<slug:slug>/',user_views.profile,name='profile'),
     #path('profile/',user_views.profile,name='profile')
     
     

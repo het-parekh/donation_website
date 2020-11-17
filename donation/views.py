@@ -10,6 +10,7 @@ from .models import Post,ImageUpload,Category
 from .forms import addPostForm,addImagesForm
 import json
 from django.core import serializers
+from django.contrib.gis.geoip2 import GeoIP2
 # Create your views here.
 
 
