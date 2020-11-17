@@ -88,9 +88,9 @@
                                 Grid View</li>
                             </ul>
                         </div>
-                        <div class="view_main">
+                        <div class="view_main" style="margin-left:20px">
                             <div class="view_wrap list-view" style="display: block;">
-                                {% for post in posts %}
+                                {% for post in pages %}
                                 <div class="view_item">
                                     <div class="vi_left">
                                         <img src="/media/{{post.post_img.all.0.main_image}}" alt="{{post.title}}">
@@ -104,7 +104,7 @@
                                 {% endfor %}
                             </div>
                             <div class="view_wrap grid-view" style="display: none;">
-                            {% for post in posts %}
+                            {% for post in pages %}
                                 <div class="view_item">
                                    <div class="vi_left">
                                         <img height="100px" src="/media/{{post.post_img.all.0.main_image}}" alt="{{post.title}}">
@@ -117,31 +117,33 @@
                                 </div>
                                 {% endfor %}
                             </div>
+                            <span style='margin-left:20px'>
+                            {% if pages.has_other_pages %}
+                                {% if pages.has_previous %}
+                                <a class="btn btn-outline-info mb-4 btn-sm" href="?page=1">First</a> <b style="color:#17a2b8">. . . . . </b> 
+                                <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ pages.previous_page_number }}">Previous</a>
+                                {% endif %}
+
+                                {% for num in pages.paginator.page_range %}
+                                    {% if pages.number == num %}
+                                        <a class="btn btn-info mb-4 btn-sm" href="?page={{ num }}">{{ num }}</a>
+                                    {% elif num > pages.number|add:'-3' and num < pages.number|add:'3' %}
+                                        <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ num }}">{{ num }}</a>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if pages.has_next %}
+                                <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ pages.next_page_number }}">Next</a>  <b style="color:#17a2b8">. . . . .</b>
+                                <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ pages.paginator.num_pages }}">Last</a> 
+                                {% endif %}
+                            {% endif %}
+                            </span>
                         </div>
                     </div>
 
 
-                    {% comment %} {% if is_paginated %}
-
-                        {% if page_obj.has_previous %}
-                        <a class="btn btn-outline-info mb-4 btn-sm" href="?page=1">First</a> <b style="color:#17a2b8">. . . . . </b> 
-                        <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                        {% endif %}
-
-                        {% for num in page_obj.paginator.page_range %}
-                        {% if page_obj.number == num %}
-                            <a class="btn btn-info mb-4 btn-sm" href="?page={{ num }}">{{ num }}</a>
-                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                            <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ num }}">{{ num }}</a>
-                        {% endif %}
-                        {% endfor %}
-
-                        {% if page_obj.has_next %}
-                        <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.next_page_number }}">Next</a>  <b style="color:#17a2b8">. . . . .</b>
-                        <a class="btn btn-outline-info mb-4 btn-sm" href="?page={{ page_obj.paginator.num_pages }}">Last</a> 
-                        {% endif %}
                     
-                    {% endif %} {% endcomment %}
+                    
                 </div>
                 <div id="tab2">
 

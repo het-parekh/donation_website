@@ -6,6 +6,7 @@ from .models import Profile
 from donation.models import Post
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class MyLoginView(LoginView):
@@ -46,11 +47,24 @@ def profile(request,slug):
     else:
         UserForm = UserRegisterForm(instance=request.user)
         ProfileForm = UserProfileForm(instance=request.user.profile)
+
+    
     slugs =  get_object_or_404(Profile, slug=slug)
     user_profile = slugs.user
     profile = slugs
     p = Post.objects.filter(author = user_profile)
-    return render(request,'user/profile.html/',{'user_profile':user_profile,'posts':p,'UserForm' :UserForm,'ProfileForm' :ProfileForm,'profile':slugs})
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(p, 10)
+    try:
+        pages = paginator.page(page)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
+
+
+    return render(request,'user/profile.html/',{'pages':pages,'user_profile':user_profile,'posts':p,'UserForm' :UserForm,'ProfileForm' :ProfileForm,'profile':slugs})
 
 
 
