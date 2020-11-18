@@ -4,7 +4,7 @@ $(document).ready(function(){
 var load = 4
 var step = 4
 var domain = "http://127.0.0.1:8000/"
-display_category('All','null')
+display_category('All',null)
 /**************************Categories ******************************/
 // if(navigator.geolocation){
 //     var n = navigator.geolocation.getCurrentPosition(showPosition);
@@ -19,8 +19,8 @@ $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
     $(this).addClass('category-active')
     console.log(($(this).text()))
-    
-    display_category($(this).text(),'null')
+
+    display_category($(this).text(),null)
     
 })
 $("#id_category").ready(function(){
@@ -81,13 +81,14 @@ function display_category(cat,subcats){
         console.log(posts)
         category = (data['category'])
         sub_category = (data['sub_category'])
-
+        console.log(window.location.href.split("=")[1])
+        $('#search-input').val(window.location.href.split("=")[1])
         row = ''
         for(i = 0;i<posts.length;i++){
             var title  = (posts[i].fields.title.length) > 13?$.trim(posts[i].fields.title).substring(0,15).trim(this)+"...":posts[i].fields.title
             row += '<div class = "all books single-post">'+
 '                                <div class = "post-img">'+
-'                                    <img src = "'+ window.location.href + "media/" + posts[i].fields.main_image +'" alt = "post_image">'+
+'                                    <img src = "'+ domain + "media/" + posts[i].fields.main_image +'" alt = "post_image">'+
 '                                    <span class = "category-name">'+ category[i] +'</span>'+
 '                                </div>'+
 '                                <div class = "post-content" >'+
@@ -119,6 +120,7 @@ $("#post_collect_id").on('click','#post_detail_btn',function(){
 $(".category-title").click(function(){
     switch_category($(this).text())
     $("#hr").remove()
+    load = step
     category = $(this).text()
 })
 $("#sub_category_id").on('click','.sub_category',function(){ 
@@ -173,8 +175,8 @@ function loadMore(){
             $("#loadmore").show() 
         }else{
         x = $(".single-post").length
-        $(".single-post").slice(0,x-step).show()
-        $(".single-post").slice(x-step,x).slideDown('fast')
+        $(".single-post").slice(0,x-load).show()
+        $(".single-post").slice(x-load,x).slideDown('fast')
     }
     
 }
@@ -185,18 +187,7 @@ function loadMore(){
 /*******************************************************************************************
  *                                 SEARCH DROPDOWN
  ********************************************************************************************/
-$("#search").one('submit',function(e){
-    e.preventDefault()
-    if (location.href != domain){
-        window.location.href = domain
-    }
-    if(location.href == domain){
-        ("#search").submit()
-        console.log("hi")
-    }
 
-
-})
  
 
 /******************************************************************************************* */

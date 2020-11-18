@@ -66,7 +66,7 @@ Navbar
     overflow: hidden;
     height: 90px;
     line-height: 70px;
-    background: #333;
+    background: #008080;
 }
 
 .container{
@@ -96,7 +96,7 @@ Navbar
 }
 
 .menu li a{
-    color: white;
+    color: #fff;
     text-decoration: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-transform: uppercase;
@@ -104,11 +104,11 @@ Navbar
 }
 
 .menu li:hover{
-    background-color: #8e33d8;
+    background-color: #00e6e6;
 }
 
 .menu li.no-hover:hover{
-    background-color: #333;
+    background-color: #008080;
 }
 
 /********************

@@ -29,6 +29,9 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
 
     def get_ajax(self, request, *args, **kwargs):
         data = ''
+        search=''
+        if request.GET.get("search"):
+            search = request.GET.get("search")
         if request.GET.get("category"):
             get = request.GET.get("category").strip()
             if get != 'All':
@@ -43,12 +46,13 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             cat = request.GET.get("display_category").strip()
             sub_cats = request.GET.get("display_sub_categories").strip()
             
-            print(sub_cats)
+            print(sub_cats == 'null')
             print(cat)
 
             if cat == 'All':
                 posts = Post.objects.all()
-            elif sub_cats =='null':
+            elif sub_cats == "null":
+                print('yo')
                 posts = Post.objects.filter(category__parent = Category.objects.get(name = cat)) 
             else:   
                 sub_cats = json.loads(sub_cats)
@@ -56,13 +60,15 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
                     posts = Post.objects.filter(category__name__in = sub_cats)
                 else:
                     posts = Post.objects.all()
+
+            
             sub_category = []
             category = []
-
+            print(posts)
             for post in posts:
                 sub_category.append(post.category.name)
                 category.append(post.category.parent)
-
+            posts = posts.filter(title__icontains = search)
             posts = serializers.serialize("json", posts)
             sub_category_list = list(map(str,sub_category))
             category_list = list(map(str,category)) 
@@ -70,6 +76,7 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             data = {'posts':posts,'sub_category':sub_category_list,'category':category_list}
 
         return self.render_json_response(data)
+
 
 def about(request):
     return render(request,'donation/about.html')
@@ -117,12 +124,13 @@ def addPost(request):
                 image_instance = ImageUpload(post=p,images=i )
                 image_instance.save()
             #messages.success(request,"Post Created Successfully")
-            return redirect(reverse('donation-home' ,kwargs={'slug':p.slug}))
+            return redirect(reverse('post-detail' ,kwargs={'slug':p.slug}))
     else:
         addform = addPostForm()
         image_form = addImagesForm()
 
     return render(request,'donation/addPost.html',{'addform':addform,'image_form':image_form})
+
 
 class Post_Detail(DetailView):
     model = Post

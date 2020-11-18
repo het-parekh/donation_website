@@ -13,8 +13,8 @@
                 <div class="logo-div">
                     <img src = "{% static '/images/logo.png' %}" alt="" class="logo">
                 </div>                     
-                <form class="form-inline" method = "GET" id="search" name='search'>
-                        <input id='search-input' class="form-control mr-sm-0" style='border-radius: 1em 0em 0em 1em;box-shadow: none;' type="search" placeholder="Search" aria-label="Search">
+                <form class="form-inline" method = "GET" action="{% url 'donation-home'%}" name='search'>
+                        <input name='search' id='search-input' class="form-control mr-sm-0" style='border-radius: 1em 0em 0em 1em;box-shadow: none;' type="search" placeholder="Search" aria-label="Search">
                         <button style='border-radius: 0 1em 1em 0' class="btn btn-outline-info my-0 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
                 <div class="navbar-links">
@@ -26,10 +26,8 @@
                       <li><a href="{% url 'register' %}" id="signup">Signup</a></li>
                         <li><a href="{% url 'login' %}">Login</a></li>
                         {% else %}
-                        <li class='no-hover '></li>
-                        
-                        <li class='no-hover '><button class='btn btn-danger'><a href="{% url 'logout' %}">Logout</a></button></li>
                         <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+                        <li class='no-hover '><button class='btn btn-danger'><a href="{% url 'logout' %}">Logout</a></button></li> 
                         {% endif %}
                     </ul>
                 </div>

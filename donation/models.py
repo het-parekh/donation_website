@@ -11,10 +11,10 @@ def user_directory_path(instance, filename):
 def main_directory_path(instance,filename):
     return 'products/user_{0}/{1}'.format(str(instance.author).split("@")[0],filename)
 class Category(models.Model):
-    clothing = sorted(['Sweater','T-shirt','Shirt','Pants','Jeans','Jacket','Shorts','Topd','Leggings','Others'])
+    clothing = sorted(['Sweater','T-shirt','Shirt','Pants','Jeans','Jacket','Shorts','Tops','Leggings','Others'])
     footwear = sorted(['Sandals','Shoes','Slippers',"Women's footwear","Kid's Footwear"])
     books = sorted(['Education','Novels','Biography','Kids','Story'])
-    category = sorted(['Clothing','Books','Electronics','Furniture','Foowear'])
+    category = sorted(['Clothing','Books','Electronics','Furniture','Footwear'])
     
     name = models.CharField(max_length=20,unique=True)
     slug = models.SlugField(max_length=100,null=True)

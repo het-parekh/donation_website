@@ -91,9 +91,9 @@ body{
     flex: 0 0 calc(16.6667% - 10px);
     display: flex;
     justify-content:center;
-    background: #b3b300;
+    background: #003153;
     padding: 12px;
-    color: #222;
+    color: #C0C0C0;
     margin: 0.5px ;
     cursor: pointer;
     transition: all 0.4s ease;
@@ -106,11 +106,11 @@ body{
     padding: 0 8px;
 }
 .category-title span{
-    color: #222;
+    color: #C0C0C0;
 }
 .category-active{
     background: #222;
-    color:#b3b300;
+    color:#C0C0C0;;
 }
 
 /** single post **/
