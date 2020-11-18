@@ -7,6 +7,14 @@ from donation.models import Post
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from .utils import account_activation_token
+from django.views import View
+
 
 
 class MyLoginView(LoginView):
@@ -25,12 +33,59 @@ def register(request):
             profile = ProfileForm.save(commit=False)
             profile.user = user
             profile.save()
-            messages.success(request,"Your account has been created successfully ")
+            #Start
+            current_site = get_current_site(request)
+            email_body = {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            }
+
+            link = reverse('activate', kwargs={
+                            'uidb64': email_body['uid'], 'token': email_body['token']})
+
+            email_subject = 'Activate your account'
+
+            activate_url = 'http://'+current_site.domain+link
+
+            email = EmailMessage(
+                email_subject,
+                'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
+                'noreply@semycolon.com',
+                [user.email],
+            )
+            email.send(fail_silently=False)
+            #end
+            messages.success(request,"Your account has been created successfully. Check your email for verification link. ")
             return redirect('login')
     else:
         UserForm = UserRegisterForm()
         ProfileForm = UserProfileForm()
     return render(request,'user/register.html',{'UserForm' :UserForm,'ProfileForm' :ProfileForm})
+
+class VerificationView(View):
+    def get(self, request, uidb64, token):
+        try:
+            id = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not account_activation_token.check_token(user, token):
+                return redirect('login'+'?message='+'User already activated')
+
+            if user.is_active:
+                messages.success(request, "Your account has been verified successfully. Please login.")
+                return redirect('login')
+            user.is_active = True
+            user.save()
+
+            messages.success(request, 'Account activated successfully')
+            return redirect('login')
+
+        except Exception as ex:
+            pass
+
+        return redirect('login')
 
 @login_required
 def profile(request,slug):
