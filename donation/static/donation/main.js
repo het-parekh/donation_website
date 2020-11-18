@@ -18,10 +18,8 @@ function showPosition(position) {
 $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
     $(this).addClass('category-active')
-    console.log(($(this).text()))
 
-    display_category($(this).text(),null)
-    
+    display_category($(this).text(),null)  
 })
 $("#id_category").ready(function(){
     get_sub_categories("Books")
@@ -73,15 +71,18 @@ function send_sub_categories(cat,category){
 }
 
 function display_category(cat,subcats){
+    console.log("subcats value: "+subcats)
 
-    console.log(cat)
+    if (subcats == ''){
+        subcats = null
+    }
     $.get(window.location.href,{display_sub_categories:JSON.stringify(subcats), display_category:cat,})
     .done(function(data){
         posts = $.parseJSON(data['posts'])
-        console.log(posts)
+
         category = (data['category'])
         sub_category = (data['sub_category'])
-        console.log(window.location.href.split("=")[1])
+
         $('#search-input').val(window.location.href.split("=")[1])
         row = ''
         for(i = 0;i<posts.length;i++){
@@ -175,8 +176,13 @@ function loadMore(){
             $("#loadmore").show() 
         }else{
         x = $(".single-post").length
-        $(".single-post").slice(0,x-load).show()
-        $(".single-post").slice(x-load,x).slideDown('fast')
+        if (x < step){
+            $(".single-post").slice(0,x).slideDown('fast')
+        }
+        else{
+            $(".single-post").slice(0,x-(load-step)).show()
+            $(".single-post").slice(x-(load-step),x).slideDown('fast')
+        }
     }
     
 }

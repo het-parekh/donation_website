@@ -52,7 +52,6 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             if cat == 'All':
                 posts = Post.objects.all()
             elif sub_cats == "null":
-                print('yo')
                 posts = Post.objects.filter(category__parent = Category.objects.get(name = cat)) 
             else:   
                 sub_cats = json.loads(sub_cats)
