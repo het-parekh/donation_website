@@ -4,12 +4,12 @@ $(document).ready(function(){
 var load = 4
 var step = 4
 var domain = "http://127.0.0.1:8000/"
-display_category('All',null)
+display_category('All','null')
 /**************************Categories ******************************/
-if(navigator.geolocation){
-    var n = navigator.geolocation.getCurrentPosition(showPosition);
-    console.log(n)
-}
+// if(navigator.geolocation){
+//     var n = navigator.geolocation.getCurrentPosition(showPosition);
+//     console.log(n)
+// }
 
 function showPosition(position) {
       console.log("Latitude: " + position.coords.latitude + 
@@ -18,7 +18,10 @@ function showPosition(position) {
 $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
     $(this).addClass('category-active')
-    display_category($(this).text(),null)
+    console.log(($(this).text()))
+    
+    display_category($(this).text(),'null')
+    
 })
 $("#id_category").ready(function(){
     get_sub_categories("Books")
@@ -70,10 +73,12 @@ function send_sub_categories(cat,category){
 }
 
 function display_category(cat,subcats){
-    $.get(window.location.href,{display_category:cat,display_sub_categories:JSON.stringify(subcats)})
+
+    console.log(cat)
+    $.get(window.location.href,{display_sub_categories:JSON.stringify(subcats), display_category:cat,})
     .done(function(data){
         posts = $.parseJSON(data['posts'])
-        console.log(window.location.href + "media/" + posts[i].fields.main_image)
+        console.log(posts)
         category = (data['category'])
         sub_category = (data['sub_category'])
 
@@ -92,7 +97,7 @@ function display_category(cat,subcats){
 '                                    </div>'+
 '                                    <h2>'+ title +'<span  class=\'badge badge-dark float-right\' >'+ sub_category[i] +'</span></h2>'+
 '                                </div>'+
-'                                <button value="'+ posts[i].fields.slug +'" id="post_detail_btn" type = "button" class = "read-btn">Get Now</button>'+
+'                                <button value="'+ posts[i].fields.slug +'" id="post_detail_btn" type = "button" class = "readbtn btn-outline-dark">Get Now</button>'+
 '                            </div>';
 	
         }
@@ -118,10 +123,12 @@ $(".category-title").click(function(){
 })
 $("#sub_category_id").on('click','.sub_category',function(){ 
     var arr = []
+
     $(this).toggleClass("sub_category-clicked")
     $(".sub_category-clicked").each(function(){
         arr.push($(this).text())
     })
+    category = $(".category-active").text()
     display_category(category,arr)
     
 })
@@ -175,10 +182,24 @@ function loadMore(){
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 
+/*******************************************************************************************
+ *                                 SEARCH DROPDOWN
+ ********************************************************************************************/
+$("#search").one('submit',function(e){
+    e.preventDefault()
+    if (location.href != domain){
+        window.location.href = domain
+    }
+    if(location.href == domain){
+        ("#search").submit()
+        console.log("hi")
+    }
 
 
+})
+ 
 
-
+/******************************************************************************************* */
 
 
 

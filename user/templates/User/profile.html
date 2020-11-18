@@ -19,19 +19,18 @@
                 <img src="/media/{{ profile.image }}" width="200"  alt="">
             </div>
             <div class="profile-nav-info">
-                <h3 class="user-name"> Bright Code </h3>
+                <h3 class="user-name"> FreeStuff4U </h3>
                 <div class="address">
-                    <p class="state">New york </p>
-                    <span class="country">USA</span>
+                    <p class="state">{{user_profile.profile.address}} </p>
+                    <span class="country"></span>
                 </div>
             </div>
-            <div class="profile-option">
+            {% comment %} <div class="profile-option">
                 <div class="notification">
                     <i class="fa bell"></i>
                     <span class="alert-message">1</span>
                 </div>
-
-            </div>
+            </div> {% endcomment %}
         </div>
         <div class="main-bd">
             <div class="left-side">
@@ -39,19 +38,22 @@
                     <p class="mobile-no"><i class="fa phone">
                     </i>{{profile.phone}}</p>
                     <p class="user-mail"><i class="fa fa-envelope"></i>{{user_profile.email}}</p>
+                    <p class="user-mail"><i class="fa fa-phone"></i>{{user_profile.profile.phone_number}}</p>
+                    {% if user_profile.profile.bio %}
                     <div class="user-bio">
                         <h3>Bio</h3>
-                        <p class="bio">{{profile.bio}}
+                        <p class="bio">{{user_profile.profile.bio}}
                         </p>
                     </div>
+                    {% endif %}
                     <div class="profile-btn">
-                        <button class="classbtn">
-                            <i class="fa fa-comment"></i>
-                            Chat 
+                        <button class="classbtn" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-trash"></i>
+                            Delete Profile 
                         </button>
-                        <button class="create-btn">
+                        {% comment %} <button class="create-btn">
                             <i class="fa fa-plus"></i>Create
-                        </button>
+                        </button> {% endcomment %}
                     </div>
                     {% comment %} <div class="user-rting">
                         <h3 class="rating">4.5</h3>
@@ -68,11 +70,39 @@
                     </div> {% endcomment %}
                 </div>
             </div>
+
+            <!--  Modal for delete profile-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Type <b>CONFIRM</b> to delete your account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    
+                    <form method="POST" name="del">
+                    {% csrf_token %}
+                    <div class="input-group">
+                    <input type="text" name="profile_del" class ="mr-3"></input>
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type='submit' class="btn btn-danger">Submit</button>
+                    </span>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+{% comment %} ---------------------------------------------------------------------------- {% endcomment %}
             <div class="right-side">
               <ul class="tabs clearfix" style="list-style:none" data-tabgroup="first-tab-group">
                 <li><a href="#tab1" class="active">Posts</a></li>
                 <li><a href="#tab2">Reviews</a></li>
+                {% if user == user_profile %}
                 <li class='tabs3'><a href="#tab3">Settings</a></li>
+                {% endif %}
             </ul>
 
             <section id="first-tab-group" class="tabgroup">
@@ -148,17 +178,21 @@
                 <div id="tab2">
 
                 </div>
+                 {% if user == user_profile %}
                 <div id="tab3" >
-                <div style="background:white">
-                    <h2>Heading 3</h2>
-                    <form method="POST" name="settings">
-                    {% csrf_token %}
-                        {{UserForm|crispy}}
-                        {{ProfileForm|crispy}}
-                        <input type="submit" class='btn btn-primary'></input>
-                    </form> 
-                </div>               
+                    <div style="background:white">
+                        <h2>Update Profile</h2>
+                        <a href='' class='float-right'>Reset Password <i class="fa fa-arrow-circle-right" style=";color:blue"></i></a>
+                        <br />
+                        <form method="POST" name="settings">
+                        {% csrf_token %}
+                            {{UserForm|crispy}}
+                            {{ProfileForm|crispy}}
+                            <input type="submit" class='btn btn-primary'></input>
+                        </form> 
+                    </div>               
                 </div>
+                {% endif %}
             </section>
             
           

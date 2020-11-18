@@ -89,7 +89,17 @@ class VerificationView(View):
 
 @login_required
 def profile(request,slug):
-    profile = get_object_or_404(Profile)
+    if(request.POST.get('profile_del')):
+        if (request.POST['profile_del'] == 'CONFIRM'):
+            u = User.objects.get(username=request.user.username)
+            u.delete()
+            messages.success(request, "Your account was deleted successfully")
+            return redirect('login')
+        else:
+            messages.warning(request, "Invalid Confirmation Message")
+            return redirect('profile' ,slug = request.user.username.split("@")[0])
+
+    
     if request.POST.get("settings"):
         
         UserForm = UserUpdateForm(request.POST,instance=request.user.profile)
@@ -103,7 +113,7 @@ def profile(request,slug):
         UserForm = UserRegisterForm(instance=request.user)
         ProfileForm = UserProfileForm(instance=request.user.profile)
 
-    
+    profile = get_object_or_404(Profile)
     slugs =  get_object_or_404(Profile, slug=slug)
     user_profile = slugs.user
     profile = slugs

@@ -191,11 +191,3 @@ html,body{
 	transform: scale(0.4);
 }
 
-#div_id_images{
-	float:right;
-}
-#img{
-	display: inline-flex;
-	margin-bottom: 15px;
-}
-

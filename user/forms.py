@@ -44,9 +44,9 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['first_name','last_name','email',]
     
 class ProfileUpdateForm(forms.ModelForm):
-
+    bio  = forms.CharField()
     class Meta:
         model = Profile
-        fields = ['image','gender','phone_number','address','postal_code','bio',]
+        fields = ('image','gender','phone_number','address','postal_code','bio')
         exclude = ('terms_accepted',)
         

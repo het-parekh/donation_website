@@ -12,16 +12,23 @@
             <div class="container">
                 <div class="logo-div">
                     <img src = "{% static '/images/logo.png' %}" alt="" class="logo">
-                </div>
+                </div>                     
+                <form class="form-inline" method = "GET" id="search" name='search'>
+                        <input id='search-input' class="form-control mr-sm-0" style='border-radius: 1em 0em 0em 1em;box-shadow: none;' type="search" placeholder="Search" aria-label="Search">
+                        <button style='border-radius: 0 1em 1em 0' class="btn btn-outline-info my-0 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
                 <div class="navbar-links">
                     <ul class="menu">
                         <li><a href="{% url 'donation-home' %}">Home</a></li>
                         <li><a href="#">About</a></li>
+
+
                         {% if not user.is_authenticated %}
                       <li><a href="{% url 'register' %}" id="signup">Signup</a></li>
                         <li><a href="{% url 'login' %}">Login</a></li>
                         {% else %}
                         <li class='no-hover '></li>
+                        
                         <li class='no-hover '><button class='btn btn-danger'><a href="{% url 'logout' %}">Logout</a></button></li>
                         {% endif %}
                     </ul>

@@ -243,6 +243,7 @@ Registration
     background: #b063f0;
 }
 
+
 @media (max-width: 420px){
     .wrapper .form .input-field{
         flex-direction: column;

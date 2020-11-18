@@ -14,7 +14,7 @@ class Profile(models.Model):
     phone_number = PhoneNumberField(null=False, blank=False, unique=True)
     address  = models.CharField(max_length=350)
     postal_code = models.CharField(max_length=10)
-    bio = models.CharField(max_length=300,null=True,blank=True)
+    bio = models.CharField(max_length=300,null=True,blank=True,default = "Feeling Great")
     slug = models.SlugField(max_length = 40,unique = True,null=True)
 
     def __str__(self):

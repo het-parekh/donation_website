@@ -11,6 +11,7 @@ from .forms import addPostForm,addImagesForm
 import json
 from django.core import serializers
 from django.contrib.gis.geoip2 import GeoIP2
+
 # Create your views here.
 
 
@@ -38,17 +39,19 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             else:
                 data = {'sub_categories':"ALL"}
 
-        if request.GET.get("display_category"):
+        if request.GET.get("display_sub_categories"):
             cat = request.GET.get("display_category").strip()
             sub_cats = request.GET.get("display_sub_categories").strip()
+            
+            print(sub_cats)
             print(cat)
+
             if cat == 'All':
                 posts = Post.objects.all()
             elif sub_cats =='null':
                 posts = Post.objects.filter(category__parent = Category.objects.get(name = cat)) 
             else:   
                 sub_cats = json.loads(sub_cats)
-                print(sub_cats)
                 if sub_cats:
                     posts = Post.objects.filter(category__name__in = sub_cats)
                 else:
@@ -59,7 +62,7 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             for post in posts:
                 sub_category.append(post.category.name)
                 category.append(post.category.parent)
-            
+
             posts = serializers.serialize("json", posts)
             sub_category_list = list(map(str,sub_category))
             category_list = list(map(str,category)) 

@@ -10,7 +10,7 @@ class addPostForm(forms.ModelForm):
     main_image = forms.ImageField(label='Main Image',required=True)
     class Meta:
         model = Post
-        fields = ('title','description','note','category','main_image','terms_accepted')
+        fields = ('title','description','note','main_image','category','terms_accepted')
 
 class termsForm(forms.Form):
     terms = forms.BooleanField(label= 'I agree to the Terms and Conditions',required=True,widget=forms.CheckboxInput)
