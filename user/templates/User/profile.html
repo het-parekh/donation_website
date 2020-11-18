@@ -93,7 +93,7 @@
                                 {% for post in pages %}
                                 <div class="view_item">
                                     <div class="vi_left">
-                                        <img src="/media/{{post.post_img.all.0.main_image}}" alt="{{post.title}}">
+                                        <img src="/media/{{post.main_image.url}}" alt="{{post.title}}">
                                     </div>
                                     <div class="vi_right">
                                         <p class="title">{{post.title}}</p>
@@ -107,7 +107,7 @@
                             {% for post in pages %}
                                 <div class="view_item">
                                    <div class="vi_left">
-                                        <img height="100px" src="/media/{{post.post_img.all.0.main_image}}" alt="{{post.title}}">
+                                        <img height="100px" src="/media/{{post.main_image.url}}" alt="{{post.title}}">
                                     </div>
                                     <div class="vi_right">
                                         <p class="title">{{post.title}}</p>

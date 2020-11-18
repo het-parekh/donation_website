@@ -3,6 +3,7 @@ $(document).ready(function(){
 // On Page Load
 var load = 4
 var step = 4
+var domain = "http://127.0.0.1:8000/"
 display_category('All',null)
 /**************************Categories ******************************/
 if(navigator.geolocation){
@@ -72,18 +73,17 @@ function display_category(cat,subcats){
     $.get(window.location.href,{display_category:cat,display_sub_categories:JSON.stringify(subcats)})
     .done(function(data){
         posts = $.parseJSON(data['posts'])
-        categogy = (data['category'])
-        image = (data['image'])
+        console.log(window.location.href + "media/" + posts[i].fields.main_image)
+        category = (data['category'])
         sub_category = (data['sub_category'])
-        console.log(categogy)
-        console.log(image)
+
         row = ''
         for(i = 0;i<posts.length;i++){
             var title  = (posts[i].fields.title.length) > 13?$.trim(posts[i].fields.title).substring(0,15).trim(this)+"...":posts[i].fields.title
             row += '<div class = "all books single-post">'+
 '                                <div class = "post-img">'+
-'                                    <img src = "'+ window.location.href + image[i].substring(3,image[i].length-2)+'" alt = "post_image">'+
-'                                    <span class = "category-name">'+ categogy[i] +'</span>'+
+'                                    <img src = "'+ window.location.href + "media/" + posts[i].fields.main_image +'" alt = "post_image">'+
+'                                    <span class = "category-name">'+ category[i] +'</span>'+
 '                                </div>'+
 '                                <div class = "post-content" >'+
 '                                    <div class = "post-content-top">'+
@@ -92,7 +92,7 @@ function display_category(cat,subcats){
 '                                    </div>'+
 '                                    <h2>'+ title +'<span  class=\'badge badge-dark float-right\' >'+ sub_category[i] +'</span></h2>'+
 '                                </div>'+
-'                                <button type = "button" class = "read-btn">Get Now</button>'+
+'                                <button value="'+ posts[i].fields.slug +'" id="post_detail_btn" type = "button" class = "read-btn">Get Now</button>'+
 '                            </div>';
 	
         }
@@ -107,7 +107,9 @@ function display_category(cat,subcats){
 }
 
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
-
+$("#post_collect_id").on('click','#post_detail_btn',function(){
+    location.href = domain+"post_detail/"+$(this).val()
+})
 /******************Sub Categories********************************* */
 $(".category-title").click(function(){
     switch_category($(this).text())

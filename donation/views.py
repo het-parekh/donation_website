@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView,DetailView
 from braces.views import JSONResponseMixin,AjaxResponseMixin
 from .models import Post,ImageUpload,Category
 from .forms import addPostForm,addImagesForm
@@ -55,18 +55,16 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
                     posts = Post.objects.all()
             sub_category = []
             category = []
-            image = []
+
             for post in posts:
                 sub_category.append(post.category.name)
                 category.append(post.category.parent)
-                image.append([post.post_img.all()[0].main_image.url])
             
             posts = serializers.serialize("json", posts)
-            image_list = list(map(str,image))
             sub_category_list = list(map(str,sub_category))
             category_list = list(map(str,category)) 
             
-            data = {'posts':posts,'image':image_list,'sub_category':sub_category_list,'category':category_list}
+            data = {'posts':posts,'sub_category':sub_category_list,'category':category_list}
 
         return self.render_json_response(data)
 
@@ -95,14 +93,14 @@ def addPost(request):
 
     if request.method == 'POST':
         
-        addform = addPostForm(request.POST)
+        addform = addPostForm(request.POST,request.FILES)
         image_form = addImagesForm(request.POST,request.FILES)
 
         if addform.is_valid and image_form.is_valid(): 
             post_instance = addform.save(commit=False)
             post_instance.author = request.user
             post_instance.save()
-   
+
             pid = post_instance.id
             p = Post.objects.get(id = pid)
             
@@ -111,22 +109,30 @@ def addPost(request):
             p.category = c
             p.save()
 
-            main_image = request.FILES['main_image']
             images_list = request.FILES.getlist('images') 
-            image_instance = ImageUpload(post=p,main_image = main_image)
-            image_instance.save()
             for i in images_list:
                 image_instance = ImageUpload(post=p,images=i )
                 image_instance.save()
             #messages.success(request,"Post Created Successfully")
-            return redirect(reverse('donation-home'))
+            return redirect(reverse('donation-home' ,kwargs={'slug':p.slug}))
     else:
         addform = addPostForm()
         image_form = addImagesForm()
 
     return render(request,'donation/addPost.html',{'addform':addform,'image_form':image_form})
 
+class Post_Detail(DetailView):
+    model = Post
+    slug_url_kwarg = 'slug'
+    slug_field = 'slug'
+    context_object_name = 'post'
+    template_name = 'donation/post_detail.html'
 
+
+    
+# def post_detail(request,slug):
+#     p = get_object_or_404(Post,slug=slug)
+#     return render(request,'donation/post_detail.html',{"slug":p})
 
                 
 

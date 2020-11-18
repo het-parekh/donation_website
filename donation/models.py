@@ -8,6 +8,8 @@ def user_directory_path(instance, filename):
 # file will be uploaded to MEDIA_ROOT/products/user_<id>/<filename>
     return 'products/user_{0}/{1}/{2}'.format(str(instance.post.author).split("@")[0],instance.post.id,filename)
 
+def main_directory_path(instance,filename):
+    return 'products/user_{0}/{1}'.format(str(instance.author).split("@")[0],filename)
 class Category(models.Model):
     clothing = sorted(['Sweater','T-shirt','Shirt','Pants','Jeans','Jacket','Shorts','Topd','Leggings','Others'])
     footwear = sorted(['Sandals','Shoes','Slippers',"Women's footwear","Kid's Footwear"])
@@ -44,7 +46,7 @@ class Post(models.Model):
     note = models.CharField(null = True,blank = True,max_length=100,verbose_name="Special Note/Instruction")
     terms_accepted = models.BooleanField(null=False,blank=False,default=False,verbose_name="I agree to the Terms and Conditions*")
     slug = models.SlugField(max_length=150,unique=True,null=True)
-
+    main_image = models.ImageField(upload_to = main_directory_path,null=True)
 
     def __str__(self):
         return f"{self.author} -> {self.title}"
@@ -52,30 +54,26 @@ class Post(models.Model):
     def save(self,*args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+        img = Image.open(self.main_image.path)
+        if img.height > 500 or img.width > 300:
+            output_size = (500,300)
+            img.thumbnail(output_size)
+            img.save(self.main_image.path)
+
 class ImageUpload(models.Model):
     post = models.ForeignKey(Post ,on_delete=models.CASCADE,related_name='post_img')
-    main_image = models.ImageField(upload_to = user_directory_path,null=True)
     images = models.ImageField(upload_to = user_directory_path,blank=True,null = True)
 
     def save(self,*args, **kwargs):
         super().save()
-        w=0
-        h=0
-        if self.images:
-            w = 1200
-            h = 800
-            img = Image.open(self.images.path)
-        if self.main_image:
-            w = 300
-            h = 300
-            img = Image.open(self.main_image.path)
-        if img.height > w or img.width > h:
-            output_size = (w,h)
+        img = Image.open(self.images.path)
+        if img.height > 800 or img.width > 600:
+            output_size = (800,600)
             img.thumbnail(output_size)
-            img.save(self.images.path if self.images else self.main_image.path)
+            img.save(self.images.path)
 
     def __str__(self):
-        return f'{self.main_image.path}'
+        return f'{self.images.path}'
 
 class Location(models.Model):
     name = models.CharField(max_length=100)
