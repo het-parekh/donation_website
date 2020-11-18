@@ -128,6 +128,12 @@ class Post_Detail(DetailView):
     context_object_name = 'post'
     template_name = 'donation/post_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(Post_Detail,self).get_context_data(**kwargs)
+        context["range"] = list(range(1,len(self.object.post_img.all())+1))
+        return context
+    
+
 
     
 # def post_detail(request,slug):
