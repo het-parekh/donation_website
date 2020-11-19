@@ -63,10 +63,9 @@ Navbar
 
 .navbar{
     width: 100%;
-    overflow: hidden;
-    height: 90px;
-    line-height: 70px;
+
     background: #008080;
+
 }
 
 .container{

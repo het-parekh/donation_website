@@ -67,8 +67,8 @@ class ImageUpload(models.Model):
     def save(self,*args, **kwargs):
         super().save()
         img = Image.open(self.images.path)
-        if img.height > 800 or img.width > 600:
-            output_size = (800,600)
+        if img.height > 250 or img.width > 100:
+            output_size = (250,100)
             img.thumbnail(output_size)
             img.save(self.images.path)
 

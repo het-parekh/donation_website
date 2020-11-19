@@ -33,7 +33,7 @@
 							  </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                    <img class="d-block w-100 " src="{{post.main_image.url}}" alt="First slide">
+                    <img class="d-block w-100" style="max-height:250px" src="{{post.main_image.url}}" alt="First slide">
                     </div>  
                   {% for img in post.post_img.all  %}
                     <div class="carousel-item">
@@ -103,22 +103,7 @@
         				
     </div>
   
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; FreeStuff4You 2020. All Rights Reserved.</p>
-      <ul class="list-inline">
-        <li class="list-inline-item">
-          <a href="#">Privacy</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">Terms</a>
-        </li>
-        <li class="list-inline-item">
-          <a href="#">FAQ</a>
-        </li>
-      </ul>
-    </div>
-  </footer>
+  
 
 <script src = "{% static 'donation/post_detail.js' %}?{% now "SHORT_DATETIME_FORMAT" %}"></script>
 </body>
