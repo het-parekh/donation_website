@@ -19,7 +19,7 @@
                 <img src="/media/{{ profile.image }}" width="200"  alt="">
             </div>
             <div class="profile-nav-info">
-                <h3 class="user-name"> FreeStuff4U </h3>
+                <h3 class="user-name"> {{user_profile.first_name}}  {{user_profile.last_name}} </h3>
                 <div class="address">
                     <p class="state">{{user_profile.profile.address}} </p>
                     <span class="country"></span>
@@ -99,7 +99,6 @@
             <div class="right-side">
               <ul class="tabs clearfix" style="list-style:none" data-tabgroup="first-tab-group">
                 <li><a href="#tab1" class="active">Posts</a></li>
-                <li><a href="#tab2">Reviews</a></li>
                 {% if user == user_profile %}
                 <li class='tabs3'><a href="#tab3">Settings</a></li>
                 {% endif %}
@@ -107,7 +106,9 @@
 
             <section id="first-tab-group" class="tabgroup">
                 <div id="tab1">
+                
                     <div class="wrapper2">
+                    
                         <div class="links">
                             <ul>
                                 <li data-view="list-view" class="li-list active">
@@ -118,6 +119,7 @@
                                 Grid View</li>
                             </ul>
                         </div>
+                        {% if posts %}
                         <div class="view_main" style="margin-left:20px">
                             <div class="view_wrap list-view" style="display: block;">
                                 {% for post in pages %}
@@ -168,12 +170,14 @@
                                 {% endif %}
                             {% endif %}
                             </span>
+
                         </div>
+                        {% else %}
+                        No Posts Found. Start Posting <a href="{% url 'addPost' %}">Here</a>
+                        {% endif %}
+
                     </div>
-
-
-                    
-                    
+        
                 </div>
                 <div id="tab2">
 

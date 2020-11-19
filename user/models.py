@@ -21,9 +21,9 @@ class Profile(models.Model):
         return f"{self.user.username}'s Profile"
      
     def save(self,*args, **kwargs):
-        super().save()
         u = self.user.username.split("@")[0]
         self.slug = slugify(u)
+        super().save()
         img = Image.open(self.image.path) #there are additional ways to do this
         if img.height > 300 or img.width > 300:
             output_size = (300,300)

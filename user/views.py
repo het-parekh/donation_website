@@ -113,10 +113,10 @@ def profile(request,slug):
         UserForm = UserRegisterForm(instance=request.user)
         ProfileForm = UserProfileForm(instance=request.user.profile)
 
-    profile = get_object_or_404(Profile)
+    
     slugs =  get_object_or_404(Profile, slug=slug)
     user_profile = slugs.user
-    profile = slugs
+
     p = Post.objects.filter(author = user_profile)
 
     page = request.GET.get('page', 1)

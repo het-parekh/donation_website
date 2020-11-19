@@ -2,24 +2,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<body>
+<html class="login_html">
+<body class="login_body">
 
     <div class="mt-4 container col-sm-4 pt-1">
-        <center><img style="width:160px"  src="http://bit.ly/31pHqJb" alt=""></center>
-        <form class = 'mt-4' method = "POST" >
+        <center><img style="width:160px;border-radius:20px;"  src="http://bit.ly/31pHqJb" alt=""></center>
+        <form class = 'mt-4 login_form' method = "POST" >
             {% csrf_token %}
             {% comment %} <input type="text" placeholder="Username" required>
             <input type="password" placeholder="Password" required> {% endcomment %}
             {{form|crispy}}
             <input type="submit" class="w-100" value="Login"></input>
             <small class="mt-3 pass float-left"><a href="{% url 'password_reset' %}">Forgot Password?</a></small>
-            <small style class="mt-3 float-right">Not Registered? 
+            <small style class="mt-3 float-right" style="color:black;font-weight:400px;">Not Registered? 
             <a href="{% url 'register' %}">Signup</a>
             </small>
 
         </form>
     </div>
 </body>
+</html>
 
 {% endblock content %}
 

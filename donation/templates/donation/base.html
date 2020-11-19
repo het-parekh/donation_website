@@ -11,7 +11,7 @@
         <div class="navbar">
             <div class="container">
                 <div class="logo-div">
-                    <img src = "{% static '/images/logo.png' %}" alt="" class="logo">
+                    <i class="fa fa-snowflake-o fa-2x mr-2" style="color:white">FreeStuff4U
                 </div>                     
                 <form class="form-inline" method = "GET" action="{% url 'donation-home'%}" name='search'>
                         <input name='search' id='search-input' class="form-control mr-sm-0" style='border-radius: 1em 0em 0em 1em;box-shadow: none;' type="search" placeholder="Search" aria-label="Search">
@@ -26,7 +26,7 @@
                       <li><a href="{% url 'register' %}" id="signup">Signup</a></li>
                         <li><a href="{% url 'login' %}">Login</a></li>
                         {% else %}
-                        <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+                        <li><a href="{% url 'profile' user.profile.slug %}">Profile</a></li>
                         <li class='no-hover '><button class='btn btn-danger'><a href="{% url 'logout' %}">Logout</a></button></li> 
                         {% endif %}
                     </ul>

@@ -6,6 +6,18 @@ Login
     padding: 0;
 }
 
+.login_body,.login_html{
+    background-image: url('../images/cool-background.jpg');
+    background-size: cover;
+    overflow-x: hidden;
+    padding-bottom: 20px;
+}
+.login_form label{
+    color:white
+}
+.login_body a{
+    color:#fff;
+}
 #div_id_username label{
    font-size: 0;
 }
@@ -114,7 +126,7 @@ Navbar
 Registration
 ********************/
 .register_body{
-    background-image: url('/static/images/registration.jpg');
+    background-image: url('../images/cool-background.jpg');
     background-size: cover;
     overflow-x: hidden;
     padding-bottom: 20px;

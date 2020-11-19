@@ -361,15 +361,16 @@ button.createbtn i {
 .grid-view .view_item {
 	display: inline-block;
     border: 1px solid #e2efe1;
-    width: 230px;
-    padding: 25px;
+    width: 210px;
+
+    padding: 10px;
     text-align: center;
-    margin: 10px;
+    margin: 3px;
    
 }
 
 .grid-view .view_item .vi_left{
-	margin-bottom: 10px;
+	margin-bottom: 0px;
 }
 
 .grid-view .view_item .btn{
@@ -405,6 +406,15 @@ button.createbtn i {
 }
 
 @media(max-width:900px) {
+    .grid-view .view_item {
+        display: inline-block;
+        border: 1px solid #e2efe1;
+        width: 180px;
+        padding: 10px;
+        text-align: center;
+        margin: 3px;
+       
+    }
     .wrapper2{
         width: 500px;
         margin: -20px auto;
