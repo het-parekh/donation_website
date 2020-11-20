@@ -1,5 +1,5 @@
-from django import forms
-from .models import Post,ImageUpload,Category
+from django.contrib.gis import forms
+from .models import Post,ImageUpload,Category,Location
 
 class addPostForm(forms.ModelForm):
     CHOICES = Category.objects.filter(parent__isnull = True)
@@ -11,6 +11,7 @@ class addPostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title','description','note','main_image','category','terms_accepted')
+        exclude = ('location',)
 
 class termsForm(forms.Form):
     terms = forms.BooleanField(label= 'I agree to the Terms and Conditions',required=True,widget=forms.CheckboxInput)
@@ -22,6 +23,15 @@ class addImagesForm(forms.ModelForm):
     class Meta:
         model = ImageUpload
         fields = ('images',)
+
+class addLocationForm(forms.ModelForm):
+    state = forms.CharField(widget = forms.TextInput(attrs={'readonly':True}))
+    city = forms.CharField(widget = forms.TextInput(attrs={'readonly':True}))
+    pincode = forms.CharField(widget = forms.TextInput(attrs={'readonly':True}))
+    class Meta:
+        model = Location
+        fields = ('state','city','pincode')
+        exclude = ('location',)
 
 
 

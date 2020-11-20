@@ -25,7 +25,7 @@ SECRET_KEY = 'f35$)c2kusnq_wbfc#3%$9k@e&5s1h_)6pn0bgf*#-p^h2!9u1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -153,6 +153,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'freestuff4u.donate@gmail.com'
 EMAIL_HOST_PASSWORD = 'mbgzqmcjguaaknzd'
+
+GEOIP_PATH = os.path.join(BASE_DIR, 'GEO_IP')
 
 if os.name == 'nt':
     import platform

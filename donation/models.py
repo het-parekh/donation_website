@@ -37,16 +37,19 @@ class Category(models.Model):
         self.slug = slugify(self.name)
         super(Category,self).save(*args, **kwargs)
 
+
 class Post(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE) 
     title = models.CharField(max_length=100,unique=True)
     description = models.CharField(max_length=1000)
     category = models.ForeignKey(Category,null=True,on_delete=models.RESTRICT,related_name='categories')#All posts will be deleted if its category is gone
+    
     date = models.DateField(auto_now_add=True)
     note = models.CharField(null = True,blank = True,max_length=100,verbose_name="Special Note/Instruction")
     terms_accepted = models.BooleanField(null=False,blank=False,default=False,verbose_name="I agree to the Terms and Conditions*")
     slug = models.SlugField(max_length=150,unique=True,null=True)
-    main_image = models.ImageField(upload_to = main_directory_path,null=True)
+    main_image = models.ImageField(upload_to = main_directory_path,null=True)    
+    active = models.BooleanField(default=False,blank = True)
 
     def __str__(self):
         return f"{self.author} -> {self.title}"
@@ -60,6 +63,15 @@ class Post(models.Model):
             img.thumbnail(output_size)
             img.save(self.main_image.path)
 
+class Location(models.Model):
+    post = models.OneToOneField(Post,null = True, on_delete=models.CASCADE,related_name='user_location')
+    location = models.PointField(null = True)
+    state = models.CharField(max_length=50,null = True)
+    city = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=100)
+    approximate = models.BooleanField(default = True)
+    def __str__(self):
+        return f"{self.id} -> {self.location}"
 class ImageUpload(models.Model):
     post = models.ForeignKey(Post ,on_delete=models.CASCADE,related_name='post_img')
     images = models.ImageField(upload_to = user_directory_path,blank=True,null = True)
@@ -75,8 +87,5 @@ class ImageUpload(models.Model):
     def __str__(self):
         return f'{self.images.path}'
 
-class Location(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.PointField()
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=50)
+
+    

@@ -32,6 +32,14 @@
                        <h5  > <legend><span class="number"><i class="fa fa-upload" aria-hidden="true"></i></span> Upload Extra Images</legend></h5>
                         
                         <div id='img'>{{image_form|crispy}}</div>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <br />
+                       <h5  > <legend><span class="number"><i class="fa fa-upload" aria-hidden="true"></i></span>Location</legend></h5>
+                        <label for="mark">Select Your Location*</label><div class='location_inner'  style='max-height:37px'><input id='mark' readonly required value="CURRENT LOCATION" type='text' class=' form-control' ><i class='fa fa-map-marker fa-2x'></i></div>
+                        <div class='location_validation' style='padding-bottom:20px' ></div>
+                        {{location_form|crispy}}
                         <small class='text-muted float-right' ><input required type='checkbox' style='width:10px;height:10px;'> I agree to the Terms and Conditions*<small>
                     </fieldset>
 

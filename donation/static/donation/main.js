@@ -6,15 +6,8 @@ var step = 4
 var domain = "http://127.0.0.1:8000/"
 display_category('All',null)
 /**************************Categories ******************************/
-// if(navigator.geolocation){
-//     var n = navigator.geolocation.getCurrentPosition(showPosition);
-//     console.log(n)
-// }
 
-function showPosition(position) {
-      console.log("Latitude: " + position.coords.latitude + 
-      "<br>Longitude: " + position.coords.longitude); 
-     }
+
 $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
     $(this).addClass('category-active')
@@ -79,14 +72,15 @@ function display_category(cat,subcats){
     $.get(window.location.href,{display_sub_categories:JSON.stringify(subcats), display_category:cat,})
     .done(function(data){
         posts = $.parseJSON(data['posts'])
-
         category = (data['category'])
         sub_category = (data['sub_category'])
-
+        distance = data['distance']
+        console.log(data)
         $('#search-input').val(window.location.href.split("=")[1])
         row = ''
         for(i = 0;i<posts.length;i++){
             var title  = (posts[i].fields.title.length) > 13?$.trim(posts[i].fields.title).substring(0,15).trim(this)+"...":posts[i].fields.title
+            var dis = (distance.length != 0)?Math.round(distance[i]).toFixed(2) + ' kms':'Less than 30 kms'
             row += '<div class = "all books single-post">'+
 '                                <div class = "post-img">'+
 '                                    <img src = "'+ domain + "media/" + posts[i].fields.main_image +'" alt = "post_image">'+
@@ -95,6 +89,7 @@ function display_category(cat,subcats){
 '                                <div class = "post-content" >'+
 '                                    <div class = "post-content-top">'+
 '                                        <span><i class = "fas fa-calendar"></i>'+ posts[i].fields.date +'</span>'+
+'                                        <span class = "float-right"><i class = "fas fa-calendar"></i>'+ dis +'</span>'+
 '                                        '+
 '                                    </div>'+
 '                                    <h2>'+ title +'<span  class=\'badge badge-dark float-right\' >'+ sub_category[i] +'</span></h2>'+
@@ -176,12 +171,12 @@ function loadMore(){
             $("#loadmore").show() 
         }else{
         x = $(".single-post").length
-        if (x < step){
+        if (x <= step){
             $(".single-post").slice(0,x).slideDown('fast')
         }
         else{
-            $(".single-post").slice(0,x-(load-step)).show()
-            $(".single-post").slice(x-(load-step),x).slideDown('fast')
+            $(".single-post").slice(0,load-step).show()
+            $(".single-post").slice(load-step,x).slideDown('fast')
         }
     }
     
@@ -191,16 +186,61 @@ function loadMore(){
 
 
 /*******************************************************************************************
- *                                 SEARCH DROPDOWN
+ *                                 LOCATION 
  ********************************************************************************************/
 
- 
+ $(".location_inner > i").click(function(){
+    send_location()
+ })
 
 /******************************************************************************************* */
 
+/*******************************************************************************************
+ *                                 SEND LOCATION
+ ********************************************************************************************/
 
+if(navigator.geolocation){
+    function getPosition() {
+        return new Promise((res, rej) => {
+            navigator.geolocation.getCurrentPosition(res, rej,{timeout:10000});
+        });
+    }  
+}
+else{
+    alert("Your Browser doesn't support navigation. Getting the closest possible location...")
+}
+send_location()
 
-
+function send_location() {
+    getPosition().then((position)=>{
+        $(".location_validation").html('<span style="color:green"><i class="fa fa-check-circle"></i>  Location Successfully Fetched... </span>')
+        $.get(window.location.href,{'geo[]':[position.coords.latitude,position.coords.longitude]})
+        .done(function(data){
+            if (data['address']){
+                data = data['address']
+                
+                $("#id_state").val(data[4])
+                $("#id_city").val(data[2])
+                $("#id_pincode").val(data[3])
+            }
+        })
+}).catch((error)=>{
+    if(error.message == 'User denied Geolocation'){
+        $(".location_validation").html('<span style="color:red"><i class="fa fa-warning"></i>   Location Services blocked by the user or timed out. Getting the closest possible location... </span>')
+        $(".location_inner input").val("Approximate Location")
+        $.get(window.location.href,{'geo_denied':'geo_denied'})
+        .done(function(data){
+            if (data['address']){
+                data = data['address']
+                $("#id_state").val(data[4])
+                $("#id_city").val(data[2])
+                $("#id_pincode").val(data[3])
+            }
+        })
+        } 
+    })
+}
+/*********************************************************************************************** */
 
 
 
