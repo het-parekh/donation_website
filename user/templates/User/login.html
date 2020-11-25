@@ -1,12 +1,13 @@
 {% extends 'donation/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 <html class="login_html">
 <body class="login_body">
 
     <div class="mt-4 container col-sm-4 pt-1">
-        <center><img style="width:160px;border-radius:20px;"  src="http://bit.ly/31pHqJb" alt=""></center>
+        <center><canvas  id="myCanvas" width="250" height="250" style="border-radius:25px;object-fit:cover;"></canvas></center>
         <form class = 'mt-4 login_form' method = "POST" >
             {% csrf_token %}
             {% comment %} <input type="text" placeholder="Username" required>
@@ -21,6 +22,16 @@
         </form>
     </div>
 </body>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var context = canvas.getContext("2d");
+
+    var img = new Image();
+    img.onload = function() {
+    context.drawImage(img, 0, 0);
+    };
+    img.src = "{% static "images/login.png" %}";
+</script>
 </html>
 
 {% endblock content %}
