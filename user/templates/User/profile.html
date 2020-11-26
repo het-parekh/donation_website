@@ -37,8 +37,17 @@
                 <div class="profile-side">
                     <p class="mobile-no"><i class="fa phone">
                     </i>{{profile.phone}}</p>
-                    <p class="user-mail"><i class="fa fa-envelope"></i>{{user_profile.email}}</p>
-                    <p class="user-mail"><i class="fa fa-phone"></i>{{user_profile.profile.phone_number}}</p>
+                    <p class="user-mail"><i class="fa fa-envelope"></i>
+                    {% if user.is_aunthenticated %}
+                    {{user_profile.email}}{% else %} ***@****.*** <a href="{% url 'login' %}">Login to view</a>
+                    {% endif %}
+                    </p>
+                    <p class="user-mail"><i class="fa fa-phone"></i>
+                    {% if user.is_aunthenticated %}
+                    {{user_profile.profile.phone_number}}{% else %} +91********** <a href="{% url 'login' %}">Login to view</a>
+                    {% endif %}
+                    </p>
+                    
                     {% if user_profile.profile.bio %}
                     <div class="user-bio">
                         <h3>Bio</h3>
@@ -98,7 +107,13 @@
 {% comment %} ---------------------------------------------------------------------------- {% endcomment %}
             <div class="right-side">
               <ul class="tabs clearfix" style="list-style:none" data-tabgroup="first-tab-group">
+                {% if user.is_authenticated %}
                 <li><a href="#tab1" class="active">Posts</a></li>
+                {% else %}
+                <div class="alert alert-warning">
+                You need to be <a href="{% url 'login' %}" class="alert-link">Logged In</a> to view this
+                </div>
+                {% endif %}
                 {% if user == user_profile %}
                 <li class='tabs3'><a href="#tab3">Settings</a></li>
                 {% endif %}

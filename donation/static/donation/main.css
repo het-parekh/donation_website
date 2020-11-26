@@ -9,6 +9,7 @@ Login
 .login_body,.login_html{
     background-image: url('../images/cool-background.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
     overflow-x: hidden;
     padding-bottom: 20px;
 }
