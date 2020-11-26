@@ -171,8 +171,82 @@ body,html {
       border-radius: 50%;
     } 
   }
-  
-  .social-link {
+/* card flip css */ 
+
+.card{
+  border: none;
+  background: #fff;
+}
+
+.img-area img{
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.team-single:hover .side-two{
+  transform: rotateY(0deg);
+  border-radius: 5px;
+}
+
+.team-single:hover .side-one{
+  transform: rotateY(180deg);
+}
+
+.content-area{
+  transform: perspective(1000px);
+  transition: 1s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.side-one{
+  position: relative;
+  transform: rotateY(0deg);
+  z-index: 2;
+  margin-bottom: 30px;
+}
+
+.side-two{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  transform: rotateY(-180deg);
+}
+
+.side-one,
+.side-two{
+  backface-visibility: hidden;
+  transition: 1s;
+  transform-style: preserve-3d;
+}
+
+.side-one .card,
+.side-two .card{
+  min-height: 312px;
+}
+
+.side-two .card a{
+  font-size: 18px;
+  color: brown;
+}
+
+h4{
+  color: brown;
+  font-family: bignoodletitling;
+  letter-spacing: 2px;
+  font-size: 25px;
+}
+
+p{
+  font-family: merienda;
+}
+
+  .back .social-link {
     width: 30px;
     height: 30px;
     border: 1px solid #ddd;
@@ -191,4 +265,5 @@ body,html {
     text-decoration: none;
     color: #555;
   }
+  
   
