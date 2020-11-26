@@ -1,15 +1,13 @@
 body,html {
-    margin: 0;
-    padding: 0;
+    margin: 0!important;
+    padding: 0!important;
     background-color: #579FE9;
-    width: 100%;
-    height: 100%;
+    padding-bottom:-100px!important;
   }
   
   hr.new{
     border: 2px solid white;
   }
-  
   
   .bubbles {
     position: absolute;

@@ -14,6 +14,7 @@ from django.contrib.gis.geoip2 import GeoIP2
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
+import time
 # Create your views here.
 
 def geoIP(request):
@@ -45,24 +46,13 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
         context["categories"] = Category.objects.filter(parent = None)
         return context
     
-    global current_position
-    global geo_permit
-    current_position = ''
     geo_permit = False
     def get_ajax(self, request, *args, **kwargs):
         data = ''
         search=''
-        global current_position
-        global geo_permit
-        if request.GET.getlist("geo[]"):
-            geo = request.GET.getlist("geo[]")
-            current_position = GEOSGeometry(f'POINT ({geo[1]} {geo[0]})', srid=4326)
-            geo_permit = True
-        elif request.GET.get('geo_denied'): 
-            geo = geoIP(request)
-            current_position = GEOSGeometry(f'POINT ({geo[1]} {geo[0]})', srid=4326)
-            geo_permit = False
-
+        geo_permit = False
+        current_position = ''
+    
         if request.GET.get("search"):
             search = request.GET.get("search")
         if request.GET.get("category"):
@@ -78,6 +68,14 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
         if request.GET.get("display_sub_categories"):
             cat = request.GET.get("display_category").strip()
             sub_cats = request.GET.get("display_sub_categories").strip()
+            geo = request.GET.getlist("geo[]")
+            if geo and geo[0] != 'geo_denied':
+                current_position = GEOSGeometry(f'POINT ({geo[1]} {geo[0]})', srid=4326)
+                geo_permit = True
+            else:
+                geoip = geoIP(request)
+                current_position = GEOSGeometry(f'POINT ({geoip[1]} {geoip[0]})', srid=4326)
+                geo_permit = False
 
             if cat == 'All':
                 posts = Post.objects.all()
@@ -90,7 +88,9 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
                 else:
                     posts = Post.objects.all()
             posts = posts.filter(title__icontains = search)
-            posts = posts.filter(user_location__location__distance_lte = (current_position,D(m=20000))).annotate(distance=Distance("user_location__location", current_position)).order_by("distance")   #10km      
+            
+            if current_position:
+                posts = posts.filter(user_location__location__distance_lte = (current_position,D(m=20000))).annotate(distance=Distance("user_location__location", current_position)).order_by("distance")   #10km      
             sub_category = []
             category = []
             distance = []
@@ -120,13 +120,12 @@ geo_details_list = []
 def addPost(request):
     global cat
     global sub_cat
-    global geo_details_list
+    global geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
     
     if request.GET.get('checkboxes') and request.is_ajax():
         cat = request.GET.get('checkboxes')
         c = Category.objects.get(name=cat).children.all()
         c2 = list(map(str,c))
-        print(cat,sub_cat)
         return JsonResponse({'sub_categories':c2})
 
     if request.GET.get('cat') and request.is_ajax():
@@ -198,10 +197,14 @@ class Post_Detail(DetailView):
     context_object_name = 'post'
     template_name = 'donation/post_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(Post_Detail,self).get_context_data(**kwargs)
-        context["range"] = list(range(1,len(self.object.post_img.all())+1))
-        return context
+    def get(self, request, *args, **kwargs):
+        if self.request.GET.get('Key'):
+            self.object = self.get_object()
+            if self.object.author == self.request.user:
+                self.objects.delete()
+                return(redirect('/')) 
+
+        return super().get(request, *args, **kwargs)
     
 
 

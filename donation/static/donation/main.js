@@ -4,7 +4,7 @@ $(document).ready(function(){
 var load = 4
 var step = 4
 var domain = "http://127.0.0.1:8000/"
-display_category('All',null)
+
 /**************************Categories ******************************/
 
 
@@ -63,13 +63,14 @@ function send_sub_categories(cat,category){
     })
 }
 
-function display_category(cat,subcats){
+function display_category(cat,subcats,geo){
     console.log("subcats value: "+subcats)
 
     if (subcats == ''){
         subcats = null
     }
-    $.get(window.location.href,{display_sub_categories:JSON.stringify(subcats), display_category:cat,})
+    console.log(geo)
+    $.get(window.location.href,{display_sub_categories:JSON.stringify(subcats), display_category:cat,'geo[]':geo})
     .done(function(data){
         posts = $.parseJSON(data['posts'])
         category = (data['category'])
@@ -214,11 +215,14 @@ send_location()
 function send_location() {
     getPosition().then((position)=>{
         $(".location_validation").html('<span style="color:green"><i class="fa fa-check-circle"></i>  Location Successfully Fetched... </span>')
-        $.get(window.location.href,{'geo[]':[position.coords.latitude,position.coords.longitude]})
+        var geo = [position.coords.latitude,position.coords.longitude]
+        $.get(window.location.href,{'geo[]': geo})
         .done(function(data){
+            console.log('hi')
+            console.log(geo)
+            display_category('All',null,geo)
             if (data['address']){
                 data = data['address']
-                
                 $("#id_state").val(data[4])
                 $("#id_city").val(data[2])
                 $("#id_pincode").val(data[3])
@@ -228,8 +232,11 @@ function send_location() {
     if(error.message == 'User denied Geolocation'){
         $(".location_validation").html('<span style="color:red"><i class="fa fa-warning"></i>   Location Services blocked by the user or timed out. Getting the closest possible location... </span>')
         $(".location_inner input").val("Approximate Location")
-        $.get(window.location.href,{'geo_denied':'geo_denied'})
+        var geo = 'geo_denied'
+        $.get(window.location.href,{'geo_denied':geo})
         .done(function(data){
+        $.get(window.location.href,{'geo_denied':geo})
+            display_category('All',null,['geo_denied'])
             if (data['address']){
                 data = data['address']
                 $("#id_state").val(data[4])
