@@ -29,6 +29,7 @@ def register(request):
             #ProfileForm.cleaned_data['phone_number']='+91'+ form.cleaned_data['phone_number']
             user = UserForm.save(commit=False)
             user.username = user.email
+            user.is_active = False
             user.save()
             profile = ProfileForm.save(commit=False)
             profile.user = user
@@ -73,11 +74,13 @@ class VerificationView(View):
             if not account_activation_token.check_token(user, token):
                 return redirect('login'+'?message='+'User already activated')
 
-            if user.is_active:
+            if not user.is_active:
+                user.is_active = True
+                user.save()
                 messages.success(request, "Your account has been verified successfully. Please login.")
                 return redirect('login')
-            user.is_active = True
-            user.save()
+
+            
 
             messages.success(request, 'Account activated successfully')
             return redirect('login')

@@ -31,7 +31,10 @@ class UserProfileForm(forms.ModelForm):
 class MyAuthForm(AuthenticationForm):
     error_messages = {
         'invalid_login': (
-            "Invalid Email Address or Password"
+            ["Credentials either not verified or are invalid. Please Verify your email address if not yet veried."]
+        ),
+        'inactive':(
+            "Please verify your email address and try again"
         )
     }
 
