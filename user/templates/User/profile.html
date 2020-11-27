@@ -37,17 +37,8 @@
                 <div class="profile-side">
                     <p class="mobile-no"><i class="fa phone">
                     </i>{{profile.phone}}</p>
-                    <p class="user-mail"><i class="fa fa-envelope"></i>
-                    {% if user.is_aunthenticated %}
-                    {{user_profile.email}}{% else %} ***@****.*** <a href="{% url 'login' %}">Login to view</a>
-                    {% endif %}
-                    </p>
-                    <p class="user-mail"><i class="fa fa-phone"></i>
-                    {% if user.is_aunthenticated %}
-                    {{user_profile.profile.phone_number}}{% else %} +91********** <a href="{% url 'login' %}">Login to view</a>
-                    {% endif %}
-                    </p>
-                    
+                    <p class="user-mail"><i class="fa fa-envelope"></i>{{user_profile.email}}</p>
+                    <p class="user-mail"><i class="fa fa-phone"></i>{{user_profile.profile.phone_number}}</p>
                     {% if user_profile.profile.bio %}
                     <div class="user-bio">
                         <h3>Bio</h3>

@@ -6,6 +6,7 @@ beautifulsoup4==4.9.3
 certifi==2020.11.8
 chardet==3.0.4
 Django==3.1.2
+django-autoslug==1.9.8
 django-braces==1.14.0
 django-cleanup==5.1.0
 django-crispy-forms==1.9.2
@@ -17,7 +18,9 @@ maxminddb==2.0.3
 multidict==5.0.2
 phonenumbers==8.12.12
 Pillow==8.0.1
+progressbar2==3.53.1
 psycopg2==2.8.6
+python-utils==2.4.0
 pytz==2020.1
 requests==2.25.0
 six==1.15.0
@@ -25,5 +28,6 @@ soupsieve==2.0.1
 sqlparse==0.4.1
 tornado==6.0.4
 typing-extensions==3.7.4.3
+Unidecode==1.1.1
 urllib3==1.26.2
 yarl==1.6.3
