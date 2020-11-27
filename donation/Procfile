@@ -1,0 +1,1 @@
+web : guniocorn django_project.wsgi
