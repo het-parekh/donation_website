@@ -1,1 +1,1 @@
-web : guniocorn django_project.wsgi
+web : gunicorn donation_website.wsgi
