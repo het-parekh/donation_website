@@ -1,1 +1,1 @@
-web : gunicorn donation_website.wsgi
+web: gunicorn donation_website.wsgi
