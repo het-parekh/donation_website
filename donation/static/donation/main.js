@@ -74,12 +74,10 @@ function display_category(cat,subcats,geo){
     .done(function(data){
         
         posts = $.parseJSON(data['posts'])
-        console.log(posts)
         category = (data['category'])
         media = (data['media'])
         sub_category = (data['sub_category'])
         distance = data['distance']
-        console.log(media)
         $('#search-input').val(window.location.href.split("=")[1])
         row = ''
         for(i = 0;i<posts.length;i++){
@@ -242,7 +240,7 @@ function send_location(category,subcategory) {
         $.get(window.location.href,{'geo_denied':geo})
         .done(function(data){
         $.get(window.location.href,{'geo_denied':geo})
-            display_category('All',null,['geo_denied'])
+        display_category(category,subcategory,['geo_denied'])
             if (data['address']){
                 data = data['address']
                 $("#id_state").val(data[4])
