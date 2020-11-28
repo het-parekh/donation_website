@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -181,3 +182,5 @@ GEOS_LIBRARY_PATH = os.environ['GEOS_LIBRARY_PATH']
 #     os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
 #     os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
 #     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
+
+django_heroku.settings(locals(),staticfiles = False)
