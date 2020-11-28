@@ -17,5 +17,10 @@
         </div>
         </form>
     </div>
+    <script>
+    {% if user.is_authenticated %}
+        window.location.href = "{% url 'donation-home' %}"
+    {% endif %}
+</script>
 </body>
 {% endblock content %}

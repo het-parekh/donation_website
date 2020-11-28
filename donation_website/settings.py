@@ -87,16 +87,16 @@ WSGI_APPLICATION = 'donation_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-#         'NAME': 'db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'testing12345',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'db',
+        'USER': 'postgres',
+        'PASSWORD': 'testing12345',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
+}
 
 
 # Password validation
@@ -139,11 +139,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # STATIC_URL = '/static/'
-
-LOGIN_REDIRECT_URL = 'donation-home'
-LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login' 
-LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'donation-home'
+
+LOGOUT_REDIRECT_URL = 'login'
+
 
 DEFAULT_FILE_STORAGE = 'donation_website.custom_azure.MediaAzureStorage'
 STATICFILES_STORAGE = 'donation_website.custom_azure.StaticAzureStorage'
@@ -184,5 +184,5 @@ GEOS_LIBRARY_PATH = os.environ['GEOS_LIBRARY_PATH']
 #     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
 
 django_heroku.settings(locals(),staticfiles = False)
-DATABASES['default'] = dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+# DATABASES['default'] = dj_database_url.config()
+# DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'

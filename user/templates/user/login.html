@@ -23,6 +23,11 @@
     </div>
 </body>
 <script>
+    {% if user.is_authenticated %}
+        window.location.href = "{% url 'donation-home' %}"
+    {% endif %}
+</script>
+<script>
     var canvas = document.getElementById("myCanvas");
     var context = canvas.getContext("2d");
 

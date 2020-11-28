@@ -25,7 +25,7 @@ def geoIP(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     g = GeoIP2()
-    location = g.city('27.106.50.128')
+    location = g.city(ip)
     latitude = location['latitude']
     longitude = location["longitude"]
     city = location["city"]
