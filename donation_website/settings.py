@@ -87,16 +87,16 @@ WSGI_APPLICATION = 'donation_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'db',
-        'USER': 'postgres',
-        'PASSWORD': 'testing12345',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'testing12345',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
+# }
 
 
 # Password validation
@@ -184,3 +184,5 @@ GEOS_LIBRARY_PATH = os.environ['GEOS_LIBRARY_PATH']
 #     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
 
 django_heroku.settings(locals(),staticfiles = False)
+DATABASES['default'] = dj_database_url.config()
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
