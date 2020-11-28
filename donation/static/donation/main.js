@@ -11,8 +11,8 @@ var domain = "http://127.0.0.1:8000/"
 $(".category-title").click(function(){
     $('.category-title').removeClass('category-active')
     $(this).addClass('category-active')
-
-    display_category($(this).text(),null)  
+    send_location($(this).text(),null)
+    // display_category($(this).text(),null)  
 })
 $("#id_category").ready(function(){
     get_sub_categories("Books")
@@ -72,11 +72,14 @@ function display_category(cat,subcats,geo){
     console.log(geo)
     $.get(window.location.href,{display_sub_categories:JSON.stringify(subcats), display_category:cat,'geo[]':geo})
     .done(function(data){
+        
         posts = $.parseJSON(data['posts'])
+        console.log(posts)
         category = (data['category'])
+        media = (data['media'])
         sub_category = (data['sub_category'])
         distance = data['distance']
-        console.log(data)
+        console.log(media)
         $('#search-input').val(window.location.href.split("=")[1])
         row = ''
         for(i = 0;i<posts.length;i++){
@@ -84,13 +87,13 @@ function display_category(cat,subcats,geo){
             var dis = (distance.length != 0)?Math.round(distance[i]).toFixed(2) + ' kms':'Less than 30 kms'
             row += '<div class = "all books single-post">'+
 '                                <div class = "post-img">'+
-'                                    <img src = "'+ domain + "media/" + posts[i].fields.main_image +'" alt = "post_image">'+
+'                                    <img src = "'+ media + posts[i].fields.main_image +'" alt = "post_image">'+
 '                                    <span class = "category-name">'+ category[i] +'</span>'+
 '                                </div>'+
 '                                <div class = "post-content" >'+
 '                                    <div class = "post-content-top">'+
 '                                        <span><i class = "fas fa-calendar"></i>'+ posts[i].fields.date +'</span>'+
-'                                        <span class = "float-right"><i class = "fas fa-calendar"></i>'+ dis +'</span>'+
+'                                        <span class = "float-right">'+ dis +'</span>'+
 '                                        '+
 '                                    </div>'+
 '                                    <h2>'+ title +'<span  class=\'badge badge-dark float-right\' >'+ sub_category[i] +'</span></h2>'+
@@ -128,7 +131,8 @@ $("#sub_category_id").on('click','.sub_category',function(){
         arr.push($(this).text())
     })
     category = $(".category-active").text()
-    display_category(category,arr)
+    send_location(category,arr)
+    // display_category(category,arr)
     
 })
 
@@ -210,17 +214,19 @@ if(navigator.geolocation){
 else{
     alert("Your Browser doesn't support navigation. Getting the closest possible location...")
 }
-send_location()
+send_location("All",'null')
 
-function send_location() {
+function send_location(category,subcategory) {
     getPosition().then((position)=>{
+        console.log(category,subcategory)
+        console.log(category,subcategory)
         $(".location_validation").html('<span style="color:green"><i class="fa fa-check-circle"></i>  Location Successfully Fetched... </span>')
         var geo = [position.coords.latitude,position.coords.longitude]
         $.get(window.location.href,{'geo[]': geo})
         .done(function(data){
             console.log('hi')
             console.log(geo)
-            display_category('All',null,geo)
+            display_category(category,subcategory,geo)
             if (data['address']){
                 data = data['address']
                 $("#id_state").val(data[4])

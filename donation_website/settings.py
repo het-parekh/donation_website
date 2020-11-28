@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'livereload',
     'crispy_forms',
     'phonenumber_field',
+    'storages',
     'django_cleanup.apps.CleanupConfig',#Keep at bottom
 ]
 
@@ -134,17 +135,25 @@ USE_TZ = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+# STATIC_URL = '/static/'
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'donation-home'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login' 
 LOGOUT_URL = 'logout'
 
+DEFAULT_FILE_STORAGE = 'donation_website.custom_azure.MediaAzureStorage'
+STATICFILES_STORAGE = 'donation_website.custom_azure.StaticAzureStorage'
+AZURE_ACCOUNT_NAME = "donationwebsite"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/django-app-donation-media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'IN'

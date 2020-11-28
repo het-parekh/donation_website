@@ -15,6 +15,8 @@ class Category(models.Model):
     footwear = sorted(['Sandals','Shoes','Slippers',"Women's footwear","Kid's Footwear"])
     books = sorted(['Education','Novels','Biography','Kids','Story'])
     category = sorted(['Clothing','Books','Electronics','Furniture','Footwear'])
+    electronics = sorted(['mobile','laptop','recorder','CD-player'])
+    furniture = sorted(['chair','table','sofa','pillow'])
     
     name = models.CharField(max_length=20,unique=True)
     slug = models.SlugField(max_length=100,null=True)
@@ -57,11 +59,11 @@ class Post(models.Model):
     def save(self,*args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
-        img = Image.open(self.main_image.path)
-        if img.height > 500 or img.width > 300:
-            output_size = (500,300)
-            img.thumbnail(output_size)
-            img.save(self.main_image.path)
+    #     img = Image.open(self.main_image.path)
+    #     if img.height > 500 or img.width > 300:
+    #         output_size = (500,300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.main_image.path)
 
 class Location(models.Model):
     post = models.OneToOneField(Post,null = True, on_delete=models.CASCADE,related_name='user_location')
@@ -76,16 +78,15 @@ class ImageUpload(models.Model):
     post = models.ForeignKey(Post ,on_delete=models.CASCADE,related_name='post_img')
     images = models.ImageField(upload_to = user_directory_path,blank=True,null = True)
 
-    def save(self,*args, **kwargs):
-        super().save()
-        img = Image.open(self.images.path)
-        if img.height > 300 or img.width > 150:
-            output_size = (300,100)
-            img.thumbnail(output_size)
-            img.save(self.images.path)
+    # def save(self,*args, **kwargs):
+    #     super().save()
+    #     img = Image.open(self.images.path)
+    #     if img.height > 300 or img.width > 150:
+    #         output_size = (300,100)
+    #         img.thumbnail(output_size)
+    #         img.save(self.images.path)
 
-    def __str__(self):
-        return f'{self.images.path}'
+
 
 
     

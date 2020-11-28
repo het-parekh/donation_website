@@ -136,7 +136,7 @@
                                     <div class="vi_right">
                                         <p class="title">{{post.title}}</p>
                                         <p class="content">{{post.description|truncatechars:50}}</p>
-                                        <div class="btn">View Post</div>
+                                        <a href="{% url 'post-detail' post.slug %}"><div class="btn" >View Post</div></a>
                                     </div>       
                                 </div>
                                 {% endfor %}

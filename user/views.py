@@ -123,7 +123,7 @@ def profile(request,slug):
     p = Post.objects.filter(author = user_profile)
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(p, 10)
+    paginator = Paginator(p, 6)
     try:
         pages = paginator.page(page)
     except PageNotAnInteger:

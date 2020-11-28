@@ -15,6 +15,7 @@ from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
 import time
+from django.conf import settings
 # Create your views here.
 
 def geoIP(request):
@@ -103,7 +104,7 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
             posts = serializers.serialize("json", posts)
             sub_category_list = list(map(str,sub_category))
             category_list = list(map(str,category)) 
-            data = {'posts':posts,'sub_category':sub_category_list,'category':category_list,'distance':sorted(distance)}
+            data = {'posts':posts,'sub_category':sub_category_list,'category':category_list,'distance':sorted(distance),'media':settings.MEDIA_URL}
 
         return self.render_json_response(data)
 
@@ -201,7 +202,7 @@ class Post_Detail(DetailView):
         if self.request.GET.get('Key'):
             self.object = self.get_object()
             if self.object.author == self.request.user:
-                self.objects.delete()
+                self.object.delete()
                 return(redirect('/')) 
 
         return super().get(request, *args, **kwargs)
