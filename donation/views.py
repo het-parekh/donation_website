@@ -154,7 +154,11 @@ def addPost(request):
     #AJAX End------------------------------------------------------------    
 
     if request.method == 'POST':
-        
+        print('category')
+        print(cat)
+        print(cat)
+        print(sub_cat)
+        print(sub_cat)
         addform = addPostForm(request.POST,request.FILES)
         image_form = addImagesForm(request.POST,request.FILES)
         location_form  = addLocationForm(request.POST)
