@@ -392,11 +392,11 @@
         $("input:checkbox[name = 'post_delete']:checked").each(function(){
             arr.push($(this).val().split('-')[1])
         })
-        $.get(window.location.href,{'cheked_posts[]':arr})
+        $.get(window.location.href,{'checked_posts[]':arr})
         .done(function(){location.reload() })
     })
     $("#delete_confirmed_all").click(function(){
-        $.get(window.location.href,{'cheked_posts_all':all})
+        $.get(window.location.href,{'checked_posts_all':'all'})
         .done(function(){location.reload() })
     })
     </script>

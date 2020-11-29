@@ -107,13 +107,13 @@ def profile(request,slug):
             i.save()
         return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
 
-    if request.GET.getlist('cheked_posts[]'):
+    if request.GET.getlist('checked_posts[]'):
         post = request.GET.getlist('cheked_posts[]')
         p = Post.objects.filter(id__in = post)
         p.delete()
         return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
 
-    if request.GET.get('cheked_posts_all'):
+    if request.GET.get('checked_posts_all'):
         p = Post.objects.all()
         p.delete()
         return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
