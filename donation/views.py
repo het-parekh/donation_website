@@ -119,9 +119,7 @@ def about(request):
 # cat = ''
 # sub_cat = ''
 # geo_details_list = []
-global cat 
-global sub_cat 
-global geo_details_list 
+
 cat = ''
 sub_cat = ''
 geo_details_list = []
