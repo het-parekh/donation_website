@@ -114,16 +114,19 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
 def about(request):
     return render(request,'donation/about.html')
 
-global cat
-global sub_cat
-cat = ''
-sub_cat = ''
-geo_details_list = []
+# global cat
+# global sub_cat
+# cat = ''
+# sub_cat = ''
+# geo_details_list = []
 @login_required
 def addPost(request):
-    global cat
-    global sub_cat
-    global geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
+    cat = ''
+    sub_cat = ''
+    geo_details_list = []
+    # global cat
+    # global sub_cat
+    # global geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
     
     if request.GET.get('checkboxes') and request.is_ajax():
         cat = request.GET.get('checkboxes')
