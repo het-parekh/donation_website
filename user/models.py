@@ -21,7 +21,7 @@ class Profile(models.Model):
         return f"{self.user.username}'s Profile"
      
     def save(self,*args, **kwargs):
-        u = self.user.username.split("@")[0]
+        u = self.user.username.split("@")[0]+self.user.id
         self.slug = slugify(u)
         super().save()
         # img = Image.open(self.image.path) #there are additional ways to do this

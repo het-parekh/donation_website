@@ -96,9 +96,6 @@ def profile(request,slug):
         post = request.GET.getlist('bookmark_removed[]')
         
         p = Post.objects.filter(id__in = post)
-        print(p)
-        print(p)
-        print(p)
         for i in p:
             i.bookmarked.remove(request.user)
             i.save()
