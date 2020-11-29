@@ -92,6 +92,36 @@ class VerificationView(View):
 
 @login_required
 def profile(request,slug):
+    if request.GET.getlist('bookmark_removed[]'):
+        post = request.GET.getlist('bookmark_removed[]')
+        
+        p = Post.objects.filter(id__in = post)
+        print(p)
+        print(p)
+        print(p)
+        for i in p:
+            i.bookmarked.remove(request.user)
+            i.save()
+        return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
+
+    if request.GET.get('bookmark_removed_all'):
+        for i in Post.objects.all():
+            i.bookmarked.remove(request.user)
+            i.save()
+        return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
+
+    if request.GET.getlist('cheked_posts[]'):
+        post = request.GET.getlist('cheked_posts[]')
+        p = Post.objects.filter(id__in = post)
+        p.delete()
+        return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
+
+    if request.GET.get('cheked_posts_all'):
+        p = Post.objects.all()
+        p.delete()
+        return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
+        
+
     if(request.POST.get('profile_del')):
         if (request.POST['profile_del'] == 'CONFIRM'):
             u = User.objects.get(username=request.user.username)
@@ -100,21 +130,21 @@ def profile(request,slug):
             return redirect('login')
         else:
             messages.warning(request, "Invalid Confirmation Message")
-            return redirect('profile' ,slug = request.user.username.split("@")[0])
+            return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
 
     
     if request.POST.get("settings"):
         
-        UserForm = UserUpdateForm(request.POST,instance=request.user.profile)
-        ProfileForm = ProfileUpdateForm(request.POST,request.FILES,instance=request.user)
-        if UserForm.is_valid() and ProfileForm.is_valid():
-            user = UserForm.save()
-            profile = ProfileForm.save()
+        UserUpdate = UserUpdateForm(request.POST,instance=request.user.profile)
+        ProfileUpdate = ProfileUpdateForm(request.POST,request.FILES,instance=request.user)
+        if UserUpdate.is_valid() and ProfileUpdate.is_valid():
+            user = UserUpdate.save()
+            profile = ProfileUpdate.save()
             messages.success(request,"Your account has been updated successfully ")
             return redirect('profile')
     else:
-        UserForm = UserRegisterForm(instance=request.user)
-        ProfileForm = UserProfileForm(instance=request.user.profile)
+        UserUpdate = UserUpdateForm(instance=request.user)
+        ProfileUpdate = ProfileUpdateForm(instance=request.user.profile)
 
     
     slugs =  get_object_or_404(Profile, slug=slug)
@@ -131,8 +161,21 @@ def profile(request,slug):
     except EmptyPage:
         pages = paginator.page(paginator.num_pages)
 
+    # Bookmark pagination
+    pb = request.user.bookmark.all()
+    print(pb)
+    page = request.GET.get('b_page', 1)
+    paginator = Paginator(pb, 6)
+    try:
+        pages_bookmark = paginator.page(page)
+    except PageNotAnInteger:
+        pages_bookmark = paginator.page(1)
+    except EmptyPage:
+        pages_bookmark = paginator.page(paginator.num_pages)
 
-    return render(request,'user/profile.html/',{'pages':pages,'user_profile':user_profile,'posts':p,'UserForm' :UserForm,'ProfileForm' :ProfileForm,'profile':slugs})
+    
+
+    return render(request,'user/profile.html/',{'pages_bookmark':pages_bookmark,'pages':pages,'user_profile':user_profile,'posts':p,'bookmarked_posts':pb,'UserUpdate' :UserUpdate,'ProfileUpdate' :ProfileUpdate,'profile':slugs})
 
 
 

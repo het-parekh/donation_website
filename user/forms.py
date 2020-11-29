@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UserChangeForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from phonenumber_field.formfields import PhoneNumberField
 
 
@@ -39,15 +39,12 @@ class MyAuthForm(AuthenticationForm):
     }
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
     class Meta:
         model = User
-        fields = ['first_name','last_name','email',]
+        fields = ['first_name','last_name','email']
     
 class ProfileUpdateForm(forms.ModelForm):
-    bio  = forms.CharField()
+    bio = forms.CharField(max_length=300,widget=forms.Textarea(attrs={'rows':5,'cols':10}))
     class Meta:
         model = Profile
         fields = ('image','gender','phone_number','address','postal_code','bio')

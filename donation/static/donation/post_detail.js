@@ -1,5 +1,5 @@
-(function($) {
-    "use strict"; // Start of use strict
+$(document).ready(function(){
+    
   
     // Smooth scrolling using jQuery easing
     $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
@@ -25,6 +25,6 @@
       target: '#mainNav',
       offset: 54
     });
-  
-  })(jQuery); // End of use strict
-  
+
+    
+  })

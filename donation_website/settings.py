@@ -139,6 +139,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # STATIC_URL = '/static/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+
 LOGIN_URL = 'login' 
 LOGIN_REDIRECT_URL = 'donation-home'
 
@@ -152,8 +155,7 @@ AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/django-app-donation-media/'
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
+
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'IN'

@@ -48,12 +48,14 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
         return context
     
     geo_permit = False
+    
     def get_ajax(self, request, *args, **kwargs):
         data = ''
         search=''
         geo_permit = False
         current_position = ''
-    
+        
+
         if request.GET.get("search"):
             search = request.GET.get("search")
         if request.GET.get("category"):
@@ -204,7 +206,18 @@ class Post_Detail(DetailView):
             if self.object.author == self.request.user:
                 self.object.delete()
                 return(redirect('/')) 
-
+        if request.GET.get('bookmark_add'):
+            print('hi')
+            self.object = self.get_object()
+            self.object.bookmarked.add(request.user)
+            self.object.save()
+      
+        
+        if request.GET.get('bookmark_remove'):
+            self.object = self.get_object()
+            self.object.bookmarked.remove(request.user)
+            self.object.save()
+    
         return super().get(request, *args, **kwargs)
     
 

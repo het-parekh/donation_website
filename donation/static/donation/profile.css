@@ -222,14 +222,15 @@ button.createbtn i {
 	 text-align: center;
 	 text-decoration: none;
 	 text-transform: uppercase;
-	 color: #888;
 	 padding: 20px 0;
-     border-bottom: 2px solid #888;
-	 background: #f7f7f7;
-}
- .tabs a:hover, .tabs a.active {
+     color: #888;
      background: #ddd;
      border-bottom: none;
+}
+ .tabs a:hover, .tabs a.active {
+    color: #888;
+    background: #f7f7f7;
+     border-bottom: 2px solid #888;
 }
 .tabgroup{
     margin-top: 0px;
@@ -250,20 +251,21 @@ button.createbtn i {
     border-right:none;
 } */
 
-.tabgroup div form div{
+/* .tabgroup div form div{
     box-shadow: none;
     padding: 0px;
     padding-left:20px;
-}
+    width:80%;
+} */
 
 /***********************************************************************************
                     USER POST LIST 
 /***********************************************************************************/
-.view_item img{
+.view_item img , .view_item-bookmark img{
 	width: 75px;
 }
 
-.wrapper2{
+.wrapper2 , .wrappers-settings {
 	width: 800px;
     margin: -20px auto;
     
@@ -275,19 +277,19 @@ button.createbtn i {
     box-shadow: none;
     padding: 10px;
 }
-.links{
+.links , .links-bookmark{
 	margin-bottom: 25px;
 	background: #fff;
 	padding: 15px;
 	border-radius: 3px;
 }
 
-.links ul{
+.links ul,.links-bookmark ul{
 	display: flex;
 	justify-content: center;
 }
 
-.links ul li{
+.links ul li ,.links-bookmark ul li{
 	margin: 0 15px;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -300,14 +302,18 @@ button.createbtn i {
 .links ul li.active{
 	color: #4abd3e;
 }
+.links-bookmark ul li:hover,
+.links-bookmark ul li.active{
+	color: #4abd3e;
+}
 
-.view_main{
+.view_main ,.view_main-bookmark {
 	background: #fff;
 	border-radius: 3px;
 	padding: 15px;
 }
 
-.list-view .view_item {
+.list-view .view_item , .list-view-bookmark .view_item-bookmark{
 	background: #fff;
 	border: 1px solid #e2efe1;
 	margin: 10px;
@@ -319,23 +325,26 @@ button.createbtn i {
 .list-view .view_item:last-child{
 	margin-bottom: 0;
 }
+.list-view-bookmark .view_item-bookmark:last-child{
+	margin-bottom: 0;
+}
 
-.list-view .view_item .vi_left{
+.list-view .view_item .vi_left , .list-view-bookmark .view_item-bookmark .vi_left-bookmark {
 	margin-right: 25px;
 }
 
-.view_item .title{
+.view_item .title , .view_item-bookmark .title{
 	font-weight: 600;
 }
 
-.view_item .content{
+.view_item .content, .view_item-bookmark .content{
 	margin: 5px 0;
 	font-size: 14px;
 	line-height: 22px;
 	font-weight: 200;
 }
 
-.view_item .btn{
+.view_item .btn, .view_item-bookmark .btn {
 	width: 100px;
 	background: #4abd3e;
 	padding: 1px 1px 1px 1px !important;
@@ -346,7 +355,7 @@ button.createbtn i {
     cursor: pointer;
 }
 
-.view_item .btn:hover{
+.view_item .btn:hover, .view_item-bbokmark .btn:hover{
 	background: #3bd62b;
 }
 
@@ -354,11 +363,11 @@ button.createbtn i {
                     USER POST GRID 
 /***********************************************************************************/
 
-.grid-view{
+.grid-view , .grid-view-bookmark{
 	width: 100%;
 }
 
-.grid-view .view_item {
+.grid-view .view_item,.grid-view-bookmark .view_item-bookmark {
 	display: inline-block;
     border: 1px solid #e2efe1;
     width: 210px;
@@ -369,11 +378,11 @@ button.createbtn i {
    
 }
 
-.grid-view .view_item .vi_left{
+.grid-view .view_item .vi_left, .grid-view-bookmark .view_item-bookmark .vi_left-bookmark {
 	margin-bottom: 0px;
 }
 
-.grid-view .view_item .btn{
+.grid-view .view_item .btn, .grid-view-bookmark .view_item-bookmark .btn{
 	margin: 0 auto;
 }
 
@@ -388,8 +397,8 @@ button.createbtn i {
 }
 
 @media(max-width:1100px) {
-    .wrapper2{
-        width: 500px;
+    .wrapper2 , .wrappers-settings {
+        width: 560px;
         margin: -20px auto;
         
     }
@@ -406,7 +415,7 @@ button.createbtn i {
 }
 
 @media(max-width:900px) {
-    .grid-view .view_item {
+    .grid-view .view_item , .grid-view-bookmark .view_item-bookmark{
         display: inline-block;
         border: 1px solid #e2efe1;
         width: 180px;
@@ -415,8 +424,8 @@ button.createbtn i {
         margin: 3px;
        
     }
-    .wrapper2{
-        width: 500px;
+    .wrapper2 , .wrappers-settings{
+        width: 600px;
         margin: -20px auto;
     }
     body {
@@ -458,7 +467,7 @@ button.createbtn i {
         justify-content: center;
     }
     @media(max-width: 400px) {
-        .wrapper2{
+        .wrapper2 , .wrappers-settings{
             width: 300px;
             margin: -20px auto;
         }
@@ -489,3 +498,18 @@ button.createbtn i {
         }
     }
 }
+
+/******************DELETE BUTTON****************************/
+.delete-button{
+    background-color:#e40031;
+    padding:5px 8px 5px 8px;
+    cursor:pointer;
+    border:none;
+}
+.delete-button:hover,.classbtn:hover {
+    background-color:hsl(347, 100%, 45%);
+    cursor:pointer;
+    box-shadow: rgb(51, 51, 51) 2px 2px ;
+    outline:none;
+}
+

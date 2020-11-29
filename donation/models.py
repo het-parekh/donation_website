@@ -52,6 +52,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=150,unique=True,null=True)
     main_image = models.ImageField(upload_to = main_directory_path,null=True)    
     active = models.BooleanField(default=False,blank = True)
+    bookmarked = models.ManyToManyField(User,null=True,blank = True,related_name = 'bookmark')
 
     def __str__(self):
         return f"{self.author} -> {self.title}"

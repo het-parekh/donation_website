@@ -36,9 +36,25 @@
 						
 					</div>
 					<div class="details col-md-6">
-            <h3 class="product-title">{{post.title}}
-            <button style='border:none;' data-toggle="modal" data-target="#deleteModal" class='float-right'><i style="color:#ff3333" class='fa fa-trash'></i></button>
+            <span style="margin-bottom:20px;"><h3 class="product-title">{{post.title}}
+            
+              <div class='float-right' style="display:flex;padding:1px;margin:0px;">
+                <div class="anim-icon anim-icon-md bookmark" style="margin-top:0px;">
+                {% if user in post.bookmarked.all %}
+                    <input value="True" type="checkbox" id="bookmark" />
+                {% else %}
+                    <input value="False" type="checkbox" id="bookmark" />
+                {% endif %}
+                    <label for="bookmark"></label>
+                </div>
+                {% if user == post.author %}
+            <button style='border:none;height:38px;' data-toggle="modal" data-target="#deleteModal" class='float-right'><img style="width:38px;height:38px;padding-left:0px;" src = "{% static 'images/delete.png' %}"></img></button>
+            {% endif %}
+              </div>
             </h3>
+              <small class="product-title" style="font-size:14px;" style='color:#595959'>Posted by <a href="{% url 'profile' post.author.profile.slug %}" style="color:#222">{{post.author.first_name}} {{post.author.last_name}}</a></small>
+            </span>
+            
             <div class="modal fade" id="deleteModal"  role="dialog">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -57,7 +73,6 @@
               </div>
             </div>
 
-			<small class="product-title" style='color:#595959'>Posted by <a href="{% url 'profile' post.author.profile.slug %}" style="color:#222">{{post.author.first_name}} {{post.author.last_name}}</a></small>
 			<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 				<li class="nav-item">
 				  <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-selected="true"><i class="fa fa-list-alt" aria-hidden="true"></i> Description</a>
@@ -67,7 +82,7 @@
 				</li>
 				
 			  </ul>
-			  <div class="tab-content" id="pills-tabContent">
+			  <div class="tab-content"  id="pills-tabContent">
 				<div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
 					<div class="card" style="background-color:#fff;margin-top:0px;padding:10px;">
           <h4 style"color:#003300";>Description</h4>
@@ -114,7 +129,24 @@
 			</div>
 		</div>
 	</div>
-			
+			<script>
+      if($("#bookmark").val() == "True"){ 
+          $("#bookmark").click()
+      }
+        $("#bookmark").click(function(){
+          console.log($("#bookmark").val())
+          if ($("#bookmark").val() == "False"){
+              $("#bookmark").val("True")
+              $.get(window.location.href,{bookmark_add:'bookmark_add'})
+          }
+          else{
+            $("#bookmark").val("False")
+            $.get(window.location.href,{bookmark_remove:'bookmark_remove'})
+          }
+         
+    })
+      </script> 
+      <script src = "{% static 'donation/post_detail.js' %}"></script>
   </body>
 </html>
 

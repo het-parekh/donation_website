@@ -216,14 +216,12 @@ send_location("All",'null')
 
 function send_location(category,subcategory) {
     getPosition().then((position)=>{
-        console.log(category,subcategory)
-        console.log(category,subcategory)
+
         $(".location_validation").html('<span style="color:green"><i class="fa fa-check-circle"></i>  Location Successfully Fetched... </span>')
         var geo = [position.coords.latitude,position.coords.longitude]
         $.get(window.location.href,{'geo[]': geo})
         .done(function(data){
-            console.log('hi')
-            console.log(geo)
+
             display_category(category,subcategory,geo)
             if (data['address']){
                 data = data['address']

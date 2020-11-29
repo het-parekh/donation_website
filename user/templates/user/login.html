@@ -24,7 +24,7 @@
 </body>
 <script>
     {% if user.is_authenticated %}
-        window.location.href = "{% url 'donation-home' %}"
+        window.location.replace = "{% url 'donation-home' %}"
     {% endif %}
 </script>
 <script>
