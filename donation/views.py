@@ -120,19 +120,8 @@ def about(request):
 # sub_cat = ''
 # geo_details_list = []
 
-cat = ''
-sub_cat = ''
-geo_details_list = []
-
 @login_required
 def addPost(request):
-    global cat 
-    global sub_cat 
-    global geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
-
-    # global cat
-    # global sub_cat
-    # global geo_details_list 
     
     if request.GET.get('checkboxes') and request.is_ajax():
         cat = request.GET.get('checkboxes')
@@ -140,12 +129,14 @@ def addPost(request):
         c2 = list(map(str,c))
         return JsonResponse({'sub_categories':c2})
 
-    if request.GET.get('cat') and request.is_ajax():
+    if request.GET.get('cat') and request.GET.get('category') and request.is_ajax():
         sub_cat = request.GET.get('cat')
         cat = request.GET.get('category')
-        print(cat)
-        print(cat)
-        print(cat)
+        request.session['category'] = cat
+        request.session['sub_category'] = sub_cat
+        print('get category')
+        print(request.session['category'])
+        print(request.session['sub_category'])
 
     if request.GET.getlist("geo[]"):
         geo = request.GET.getlist("geo[]")
@@ -153,7 +144,8 @@ def addPost(request):
         geo_details_list[0] = geo[0]
         geo_details_list[1] = geo[1]
         geo_details_list.append(False)
-        return JsonResponse({'address':geo_details_list})
+        request.session['geo_details_list'] = geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
+        return JsonResponse({'address':geo_details_list}) 
 
     elif request.GET.get('geo_denied'):
         geo_details_list = geoIP(request)
@@ -164,15 +156,15 @@ def addPost(request):
 
     if request.method == 'POST':
         print('category')
-        print(cat)
-        print(cat)
-        print(sub_cat)
-        print(sub_cat)
+        print(request.session['category'])
+        print(request.session['category'])
+        print(request.session['sub_category'])
+        print(request.session['sub_category'])
         print('geo')
-        print(geo_details_list)
-        print(geo_details_list)
-        print(geo_details_list)
-        print(geo_details_list)
+        print(request.session['geo_details_list'])
+        print(request.session['geo_details_list'])
+        print(request.session['geo_details_list'])
+
         addform = addPostForm(request.POST,request.FILES)
         image_form = addImagesForm(request.POST,request.FILES)
         location_form  = addLocationForm(request.POST)
@@ -185,8 +177,8 @@ def addPost(request):
             pid = post_instance.id
             p = Post.objects.get(id = pid)
             
-            parent = Category.objects.get(name=cat,parent=None)
-            c = Category.objects.get(name = sub_cat,parent = parent)
+            parent = Category.objects.get(name=request.session['category'],parent=None)
+            c = Category.objects.get(name = request.session['sub_category'],parent = parent)
             p.category = c
             p.save()
 
@@ -195,7 +187,7 @@ def addPost(request):
                 image_instance = ImageUpload(post=p,images=i )
                 image_instance.save()
             #messages.success(request,"Post Created Successfully")
-            
+            geo_details_list = request.session['geo_details_list']
             current_position = GEOSGeometry(f'POINT ({geo_details_list[1]} {geo_details_list[0]})', srid=4326) 
             locate = location_form.save(commit=False)
             locate.post = p
