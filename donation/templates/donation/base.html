@@ -27,27 +27,27 @@
                 </form>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'donation-home' %}"><i class="fa fa-home" aria-hidden="true" style="margin-right: 5px;"></i>Home</a>
+                  <a class="nav-link" style="box-shadow:none;" href="{% url 'donation-home' %}"><i class="fa fa-home" aria-hidden="true" style="margin-right: 5px;"></i>Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}"><i class="fa fa-info-circle" aria-hidden="true" style="margin-right: 5px;"></i>About</a>
+                    <a class="nav-link" style="box-shadow:none;"  href="{% url 'about' %}"><i class="fa fa-info-circle" aria-hidden="true" style="margin-right: 5px;"></i>About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'addPost' %}"><i class="fa fa-upload" aria-hidden="true" style="margin-right: 5px;"></i>Upload</a>
+                    <a class="nav-link"style="box-shadow:none;" href="{% url 'addPost' %}"><i class="fa fa-upload" aria-hidden="true" style="margin-right: 5px;"></i>Upload</a>
                 </li>
                 {% if not user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'register' %}" id="signup"><i class="fa fa-user-plus" aria-hidden="true" style="margin-right: 5px;"></i>Signup</a>
+                  <a class="nav-link" style="box-shadow:none;" href="{% url 'register' %}" id="signup"><i class="fa fa-user-plus" aria-hidden="true" style="margin-right: 5px;"></i>Signup</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true" style="margin-right: 5px;"></i>Login</a>
+                  <a class="nav-link" style="box-shadow:none;" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true" style="margin-right: 5px;"></i>Login</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' user.profile.slug %}"><i class="fa fa-user" aria-hidden="true" style="margin-right: 5px;"></i>Profile</a>
+                    <a class="nav-link" style="box-shadow:none;" href="{% url 'profile' user.profile.slug %}"><i class="fa fa-user" aria-hidden="true" style="margin-right: 5px;"></i>Profile</a>
                 </li>
                 <li class="nav-item no-hover">
-                    <button class='btn btn-danger' style="margin-top: 10px;"><a href="{% url 'logout' %}" style="color: #fff;text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 5px;"></i>Logout</a></button>
+                    <button class='btn btn-danger'  style="margin-top: 10px;"><a href="{% url 'logout' %}" style="color: #fff;text-decoration: none;"><i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 5px;"></i>Logout</a></button>
                 </li>
                 {% endif %}
               </ul>

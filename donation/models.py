@@ -45,7 +45,6 @@ class Post(models.Model):
     title = models.CharField(max_length=100,unique=True)
     description = models.CharField(max_length=1000)
     category = models.ForeignKey(Category,null=True,on_delete=models.RESTRICT,related_name='categories')#All posts will be deleted if its category is gone
-    
     date = models.DateField(auto_now_add=True)
     note = models.CharField(null = True,blank = True,max_length=100,verbose_name="Special Note/Instruction")
     terms_accepted = models.BooleanField(null=False,blank=False,default=False,verbose_name="I agree to the Terms and Conditions*")
