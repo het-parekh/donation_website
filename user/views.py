@@ -114,7 +114,7 @@ def profile(request,slug):
         return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
 
     if request.GET.get('checked_posts_all'):
-        p = Post.objects.all()
+        p = Post.objects.filter(author == request.user)
         p.delete()
         return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
         
