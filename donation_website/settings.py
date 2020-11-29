@@ -186,5 +186,5 @@ GEOS_LIBRARY_PATH = os.environ['GEOS_LIBRARY_PATH']
 #     os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
 
 django_heroku.settings(locals(),staticfiles = False)
-# DATABASES['default'] = dj_database_url.config()
-# DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+DATABASES['default'] = dj_database_url.config()
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
