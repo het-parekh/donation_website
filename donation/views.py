@@ -114,12 +114,6 @@ class Home(JSONResponseMixin,AjaxResponseMixin,ListView):
 def about(request):
     return render(request,'donation/about.html')
 
-# global cat
-# global sub_cat
-# cat = ''
-# sub_cat = ''
-# geo_details_list = []
-
 @login_required
 def addPost(request):
     
@@ -134,9 +128,7 @@ def addPost(request):
         cat = request.GET.get('category')
         request.session['category'] = cat
         request.session['sub_category'] = sub_cat
-        print('get category')
-        print(request.session['category'])
-        print(request.session['sub_category'])
+
 
     if request.GET.getlist("geo[]"):
         geo = request.GET.getlist("geo[]")
@@ -155,15 +147,6 @@ def addPost(request):
     #AJAX End------------------------------------------------------------    
 
     if request.method == 'POST':
-        print('category')
-        print(request.session['category'])
-        print(request.session['category'])
-        print(request.session['sub_category'])
-        print(request.session['sub_category'])
-        print('geo')
-        print(request.session['geo_details_list'])
-        print(request.session['geo_details_list'])
-        print(request.session['geo_details_list'])
 
         addform = addPostForm(request.POST,request.FILES)
         image_form = addImagesForm(request.POST,request.FILES)
