@@ -148,6 +148,7 @@ LOGIN_REDIRECT_URL = 'donation-home'
 LOGOUT_REDIRECT_URL = 'login'
 
 
+
 DEFAULT_FILE_STORAGE = 'donation_website.custom_azure.MediaAzureStorage'
 STATICFILES_STORAGE = 'donation_website.custom_azure.StaticAzureStorage'
 AZURE_ACCOUNT_NAME = "donationwebsite"
@@ -155,7 +156,9 @@ AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/static/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/django-app-donation-media/'
 
-
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'IN'

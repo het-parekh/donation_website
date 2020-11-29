@@ -3,7 +3,7 @@ $(document).ready(function(){
 // On Page Load
 var load = 4
 var step = 4
-var domain = "http://127.0.0.1:8000/"
+var domain = "https://freestuff4u.herokuapp.com/"
 
 /**************************Categories ******************************/
 
