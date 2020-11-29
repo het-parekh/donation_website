@@ -77,7 +77,6 @@ Navbar
 
 .navbar{
     width: 100%;
-
     background: #008080;
 
 }
@@ -99,16 +98,18 @@ Navbar
     float: right;
 }
 
-.menu li{
+.navbar-nav .nav-item{
     float: left;
     width: 120px;
     height: 70px;
+    margin-bottom: 10px;
     line-height: 70px;
     text-align: center;
     list-style-type: none;
 }
 
-.menu li a{
+
+.navbar-nav .nav-item .nav-link{
     color: #fff;
     text-decoration: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -116,11 +117,12 @@ Navbar
     display: block;
 }
 
-.menu li:hover{
+
+.navbar-nav .nav-item:hover{
     background-color: #00e6e6;
 }
 
-.menu li.no-hover:hover{
+.navbar-nav .nav-item.no-hover:hover{
     background-color: #008080;
 }
 
@@ -269,6 +271,13 @@ Registration
         flex-direction: row;
     }
 }
+
+
+
+
+
+
+
 
 
 
