@@ -136,8 +136,11 @@ def addPost(request):
 
     if request.GET.get('cat') and request.is_ajax():
         sub_cat = request.GET.get('cat')
-        cat = request.GET.get('category')   
-    
+        cat = request.GET.get('category')
+        print(cat)
+        print(cat)
+        print(cat)
+
     if request.GET.getlist("geo[]"):
         geo = request.GET.getlist("geo[]")
         geo_details_list = geoIP(request)
@@ -159,6 +162,11 @@ def addPost(request):
         print(cat)
         print(sub_cat)
         print(sub_cat)
+        print('geo')
+        print(geo_details_list)
+        print(geo_details_list)
+        print(geo_details_list)
+        print(geo_details_list)
         addform = addPostForm(request.POST,request.FILES)
         image_form = addImagesForm(request.POST,request.FILES)
         location_form  = addLocationForm(request.POST)
@@ -181,7 +189,7 @@ def addPost(request):
                 image_instance = ImageUpload(post=p,images=i )
                 image_instance.save()
             #messages.success(request,"Post Created Successfully")
-            print(geo_details_list)
+            
             current_position = GEOSGeometry(f'POINT ({geo_details_list[1]} {geo_details_list[0]})', srid=4326) 
             locate = location_form.save(commit=False)
             locate.post = p
