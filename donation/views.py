@@ -119,14 +119,22 @@ def about(request):
 # cat = ''
 # sub_cat = ''
 # geo_details_list = []
+global cat 
+global sub_cat 
+global geo_details_list 
+cat = ''
+sub_cat = ''
+geo_details_list = []
+
 @login_required
 def addPost(request):
-    cat = ''
-    sub_cat = ''
-    geo_details_list = []
+    global cat 
+    global sub_cat 
+    global geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
+
     # global cat
     # global sub_cat
-    # global geo_details_list #['latitude','longitude','city','state','zipcode','Approx']
+    # global geo_details_list 
     
     if request.GET.get('checkboxes') and request.is_ajax():
         cat = request.GET.get('checkboxes')
