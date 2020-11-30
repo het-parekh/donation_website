@@ -57,7 +57,7 @@ class Post(models.Model):
         return f"{self.author} -> {self.title}"
     
     def save(self,*args, **kwargs):
-        self.slug = slugify( str(self.user.profile.slug) + "-" + self.title)
+        self.slug = slugify( str(self.author.profile.slug) + "-" + self.title)
         super().save(*args, **kwargs)
     #     img = Image.open(self.main_image.path)
     #     if img.height > 500 or img.width > 300:
