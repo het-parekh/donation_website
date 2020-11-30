@@ -109,7 +109,7 @@ def profile(request,slug):
 
     if request.GET.getlist('checked_posts[]'):
         post = request.GET.getlist('cheked_posts[]')
-        print(p)
+        print(post)
         p = Post.objects.filter(id__in = post)
         print(p)
         p.delete()
