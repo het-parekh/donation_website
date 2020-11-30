@@ -131,14 +131,14 @@ def profile(request,slug):
 
     
     if request.POST.get("settings"):
-        
-        UserUpdate = UserUpdateForm(request.POST,instance=request.user)
+
         ProfileUpdate = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        UserUpdate = UserUpdateForm(request.POST,instance=request.user)
         if UserUpdate.is_valid() and ProfileUpdate.is_valid():
             UserUpdate.save()
             ProfileUpdate.save()
             messages.success(request,"Your account has been updated successfully ")
-            return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
+            return redirect(reverse('donation-home',kwargs = {'slug':request.user.profile.slug}))
     else:
         UserUpdate = UserUpdateForm(instance=request.user)
         ProfileUpdate = ProfileUpdateForm(instance=request.user.profile)
@@ -160,7 +160,6 @@ def profile(request,slug):
 
     # Bookmark pagination
     pb = request.user.bookmark.all()
-    print(pb)
     page = request.GET.get('b_page', 1)
     paginator = Paginator(pb, 6)
     try:
