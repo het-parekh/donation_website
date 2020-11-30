@@ -138,7 +138,7 @@ def profile(request,slug):
             UserUpdate.save()
             ProfileUpdate.save()
             messages.success(request,"Your account has been updated successfully ")
-            return redirect(reverse('donation-home',kwargs = {'slug':request.user.profile.slug}))
+            return redirect(reverse('donation-home'))
     else:
         UserUpdate = UserUpdateForm(instance=request.user)
         ProfileUpdate = ProfileUpdateForm(instance=request.user.profile)
