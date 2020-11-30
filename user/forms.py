@@ -4,9 +4,6 @@ from .models import Profile
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from phonenumber_field.formfields import PhoneNumberField
 
-
-
-
 class UserRegisterForm(UserCreationForm ):
     email = forms.EmailField()
     #USERNAME_FIELD='email'
@@ -48,5 +45,5 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('image','gender','phone_number','address','postal_code','bio')
-        exclude = ('terms_accepted',)
+        
         
