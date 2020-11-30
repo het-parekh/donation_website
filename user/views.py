@@ -109,7 +109,9 @@ def profile(request,slug):
 
     if request.GET.getlist('checked_posts[]'):
         post = request.GET.getlist('cheked_posts[]')
+        print(p)
         p = Post.objects.filter(id__in = post)
+        print(p)
         p.delete()
         return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
 
