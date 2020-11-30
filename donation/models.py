@@ -42,7 +42,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(User,on_delete=models.CASCADE) 
-    title = models.CharField(max_length=100,unique=True)
+    title = models.CharField(max_length=100,)
     description = models.CharField(max_length=1000)
     category = models.ForeignKey(Category,null=True,on_delete=models.RESTRICT,related_name='categories')#All posts will be deleted if its category is gone
     date = models.DateField(auto_now_add=True)
@@ -57,7 +57,7 @@ class Post(models.Model):
         return f"{self.author} -> {self.title}"
     
     def save(self,*args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify( str(self.user.profile.slug) + "-" + self.title)
         super().save(*args, **kwargs)
     #     img = Image.open(self.main_image.path)
     #     if img.height > 500 or img.width > 300:
