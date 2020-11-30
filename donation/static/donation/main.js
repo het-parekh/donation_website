@@ -205,7 +205,7 @@ function loadMore(){
 if(navigator.geolocation){
     function getPosition() {
         return new Promise((res, rej) => {
-            navigator.geolocation.getCurrentPosition(res, rej,{timeout:10000});
+            navigator.geolocation.getCurrentPosition(res, rej,{timeout:10000,enableHighAccuracy:true});
         });
     }  
 }

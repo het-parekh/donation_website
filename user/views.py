@@ -138,7 +138,7 @@ def profile(request,slug):
             user = UserUpdate.save()
             profile = ProfileUpdate.save()
             messages.success(request,"Your account has been updated successfully ")
-            return redirect('profile')
+            return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
     else:
         UserUpdate = UserUpdateForm(instance=request.user)
         ProfileUpdate = ProfileUpdateForm(instance=request.user.profile)

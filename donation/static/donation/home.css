@@ -146,27 +146,28 @@ body{
 
 
 .post-content{
-    padding: 5px 10px 10px;
+    padding: 5px 1px 10px;
     height:70px
 }
+
 .post-content-top{
     background: #80ced7;
     color: #fff;
     opacity: 0.8;
     line-height: 10px;
     font-size: 12px;
-    padding: 3px 0 3px 15px;
+    padding: 3px 0 3px 3px;
     margin-top: 4px!important;
 }
 .post-content-top span{
-    padding-right: 20px;
+    padding-right: 3px;
 }
 .post-content-top .fa-comment, .post-content-top .fa-calendar{
     padding-right: 5px;
 }
 .post-content h2{
     font-size: 15px;
-    padding: 12px 0;
+    padding: 12px 3px 0 3px ;
     font-weight: 400;
 }
 .post-content p{
