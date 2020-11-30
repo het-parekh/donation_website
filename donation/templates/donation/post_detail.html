@@ -39,6 +39,7 @@
             <span style="margin-bottom:20px;"><h3 class="product-title">{{post.title}}
             
               <div class='float-right' style="display:flex;padding:1px;margin:0px;">
+              {% if user.is_authenticated %}
                 <div class="anim-icon anim-icon-md bookmark" style="margin-top:0px;">
                 {% if user in post.bookmarked.all %}
                     <input value="True" type="checkbox" id="bookmark" />
@@ -47,6 +48,7 @@
                 {% endif %}
                     <label for="bookmark"></label>
                 </div>
+              {% endif %}
                 {% if user == post.author %}
             <button style='border:none;height:38px;' data-toggle="modal" data-target="#deleteModal" class='float-right'><img style="width:38px;height:38px;padding-left:0px;" src = "{% static 'images/delete.png' %}"></img></button>
             {% endif %}
