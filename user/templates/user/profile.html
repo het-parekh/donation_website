@@ -390,10 +390,8 @@
     $("#delete_confirmed").click(function(){
         var arr = []
         $("input:checkbox[name = 'post_delete']:checked").each(function(){
-            arr.push($(this).val().split('-')[1])
-            
+            arr.push($(this).val().split('-')[1])  
         })
-        console.log(arr)
         $.get(window.location.href,{'checked_posts[]':arr})
         .done(function(){location.reload() })
     })
