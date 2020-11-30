@@ -132,11 +132,11 @@ def profile(request,slug):
     
     if request.POST.get("settings"):
         
-        UserUpdate = UserUpdateForm(request.POST,instance=request.user.profile)
-        ProfileUpdate = ProfileUpdateForm(request.POST,request.FILES,instance=request.user)
+        UserUpdate = UserUpdateForm(request.POST,instance=request.user)
+        ProfileUpdate = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
         if UserUpdate.is_valid() and ProfileUpdate.is_valid():
-            user = UserUpdate.save()
-            profile = ProfileUpdate.save()
+            UserUpdate.save()
+            ProfileUpdate.save()
             messages.success(request,"Your account has been updated successfully ")
             return redirect(reverse('profile',kwargs = {'slug':request.user.profile.slug}))
     else:
