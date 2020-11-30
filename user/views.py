@@ -132,8 +132,9 @@ def profile(request,slug):
     
     if request.POST.get("settings"):
 
-        ProfileUpdate = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
         UserUpdate = UserUpdateForm(request.POST,instance=request.user)
+        ProfileUpdate = ProfileUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        
         if UserUpdate.is_valid() and ProfileUpdate.is_valid():
             UserUpdate.save()
             ProfileUpdate.save()
