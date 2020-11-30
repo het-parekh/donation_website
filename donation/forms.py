@@ -27,7 +27,7 @@ class addImagesForm(forms.ModelForm):
 class addLocationForm(forms.ModelForm):
     state = forms.CharField(widget = forms.TextInput(attrs={'readonly':True}))
     city = forms.CharField(widget = forms.TextInput(attrs={'readonly':True}))
-    pincode = forms.CharField(widget = forms.TextInput(attrs={'readonly':True}))
+    pincode = forms.CharField(required = True)
     class Meta:
         model = Location
         fields = ('state','city','pincode')
