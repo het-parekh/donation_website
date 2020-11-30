@@ -248,7 +248,7 @@
                         <center><h2>Update Profile</h2></center>
                         <a href="{% url 'password_reset' %}" class='float-right'>Reset Password <i class="fa fa-arrow-circle-right" style=";color:blue"></i></a>
                         <br />
-                        <form method="POST" name="settings">
+                        <form method="POST" name="settings" enctype = 'multipart/form-data'>
                         {% csrf_token %}
                             {{UserUpdate|crispy}}
                             {{ProfileUpdate|crispy}}
