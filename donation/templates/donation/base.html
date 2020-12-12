@@ -54,31 +54,7 @@
             </div>
             
         </nav>
-        <!--<div class="navbar">
-            <div class="container">
-                <div class="logo-div">
-                    <i class="fa fa-snowflake-o fa-2x mr-2" style="color:white">FreeStuff4U
-                </div>                     
-                <form class="form-inline" method = "GET" action="{% url 'donation-home'%}" name='search'>
-                        <input name='search' id='search-input' class="form-control mr-sm-0" style='border-radius: 1em 0em 0em 1em;box-shadow: none;' type="search" placeholder="Search" aria-label="Search">
-                        <button style='border-radius: 0 1em 1em 0' class="btn btn-outline-info my-0 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
-                <div class="navbar-links">
-                    <ul class="menu">
-                        <li><a href="{% url 'donation-home' %}"><i class="fa fa-home" aria-hidden="true" style="margin-right: 5px;"></i>Home</a></li>
-                        <li><a href="{% url 'about' %}"><i class="fa fa-info-circle" aria-hidden="true" style="margin-right: 5px;"></i>About</a></li>
-                        <li><a href="{% url 'addPost' %}"><i class="fa fa-upload" aria-hidden="true" style="margin-right: 5px;"></i>Upload</a></li>
-                        {% if not user.is_authenticated %}
-                        <li><a href="{% url 'register' %}" id="signup"><i class="fa fa-user-plus" aria-hidden="true" style="margin-right: 5px;"></i>Signup</a></li>
-                        <li><a href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true" style="margin-right: 5px;"></i>Login</a></li>
-                        {% else %}
-                        <li><a href="{% url 'profile' user.profile.slug %}"><i class="fa fa-user" aria-hidden="true" style="margin-right: 5px;"></i>Profile</a></li>
-                        <li class='no-hover '><button class='btn btn-danger'><a href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 5px;"></i>Logout</a></button></li> 
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>-->
+        
         {% if messages %}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
